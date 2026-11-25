@@ -1,0 +1,3231 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AluArt | Cuadros y Placas Personalizadas de Aluminio por Sublimación</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            alu: {
+              dark: '#0f1115',
+              charcoal: '#181b20',
+              slate: '#262b33',
+              steel: '#6b7280',
+              silver: '#d1d5db',
+              light: '#f4f5f7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Acabados metálicos de aluminio cepillado */
+    .alu-brushed {
+      background: linear-gradient(135deg, #e5e7eb 0%, #f9fafb 25%, #9ca3af 50%, #f3f4f6 75%, #d1d5db 100%);
+    }
+    .alu-plate-shadow {
+      box-shadow:
+        0 24px 42px -12px rgba(15, 17, 21, 0.30),
+        0 6px 16px -3px rgba(15, 17, 21, 0.14),
+        inset 0 1px 1px rgba(255, 255, 255, 0.95),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.25);
+    }
+    .alu-sheen {
+      background: linear-gradient(
+        115deg,
+        rgba(255, 255, 255, 0) 18%,
+        rgba(255, 255, 255, 0.26) 44%,
+        rgba(255, 255, 255, 0.04) 56%,
+        rgba(255, 255, 255, 0) 82%
+      );
+      pointer-events: none;
+    }
+    .alu-dark-gradient {
+      background: radial-gradient(circle at top right, #272c35 0%, #0f1115 65%);
+    }
+    /* Patrón sutil de rejilla en modo "Imagen completa" para visualizar el margen del aluminio */
+    .alu-metal-backing {
+      background-color: #e5e7eb;
+      background-image:
+        linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(209,213,219,0.45) 50%, rgba(255,255,255,0.8) 100%),
+        repeating-linear-gradient(90deg, rgba(156,163,175,0.12) 0px, rgba(156,163,175,0.12) 1px, transparent 1px, transparent 4px);
+    }
+    /* Sliders personalizados */
+    input[type="range"].alu-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 9999px;
+      background: #e5e7eb;
+      outline: none;
+    }
+    input[type="range"].alu-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 9999px;
+      background: #0f1115;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.28);
+      cursor: pointer;
+    }
+    input[type="range"].alu-slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 9999px;
+      background: #0f1115;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.28);
+      cursor: pointer;
+    }
+    /* Scrollbar refinada */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f4f5f7; }
+    ::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+  </style>
+</head>
+<body class="bg-white text-alu-dark antialiased selection:bg-alu-dark selection:text-white">
+
+  <!-- ==================== NOTIFICACIONES FLOTANTES (TOASTS) ==================== -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-3 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- ==================== BARRA DE NAVEGACIÓN ==================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo Oficial AluArt (SVG vectorial fiel) -->
+        <a href="#inicio" onclick="navigateTo('store')" class="flex items-center gap-3 group focus:outline-none">
+          <div class="w-36 sm:w-40 transition-transform duration-300 group-hover:scale-[1.02]">
+            <svg viewBox="0 0 260 145" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg" aria-label="AluArt Logo">
+              <defs>
+                <linearGradient id="aluMetalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#6e7278"/>
+                  <stop offset="22%" stop-color="#d4d7dc"/>
+                  <stop offset="42%" stop-color="#ffffff"/>
+                  <stop offset="65%" stop-color="#8b9098"/>
+                  <stop offset="85%" stop-color="#dfe2e6"/>
+                  <stop offset="100%" stop-color="#757980"/>
+                </linearGradient>
+                <linearGradient id="aluTextMetal" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#7c8087"/>
+                  <stop offset="50%" stop-color="#a6abb3"/>
+                  <stop offset="100%" stop-color="#6b6f76"/>
+                </linearGradient>
+              </defs>
+              <polygon points="122,12 58,108 182,108 172,93 90,93 122,44 139,70 156,70" fill="#111214"/>
+              <polygon points="122,74 107,93 137,93" fill="url(#aluMetalGrad)"/>
+              <polygon points="131,12 152,12 214,108 190,108 140,28" fill="url(#aluMetalGrad)"/>
+              <g transform="translate(16, 138)">
+                <path d="M0,0 L14,-21 L28,0 L23,0 L14,-14 L5,0 Z" fill="#111214"/>
+                <path d="M36,-21 L41,-21 L41,-4 L59,-4 L59,0 L36,0 Z" fill="#111214"/>
+                <path d="M67,-21 L72,-21 L72,-7 C72,-4 74,-3 78,-3 L86,-3 C90,-3 92,-4 92,-7 L92,-21 L97,-21 L97,-7 C97,-1 93,0 86,0 L78,0 C71,0 67,-1 67,-7 Z" fill="#111214"/>
+                <path d="M107,0 L121,-21 L135,0 L130,0 L121,-14 L112,0 Z" fill="url(#aluTextMetal)"/>
+                <path d="M144,-21 L164,-21 C170,-21 173,-18 173,-14 C173,-10 170,-8 165,-7 L174,0 L168,0 L159,-7 L149,-7 L149,0 L144,0 Z M149,-17 L149,-11 L163,-11 C166,-11 168,-12 168,-14 C168,-16 166,-17 163,-17 Z" fill="url(#aluTextMetal)"/>
+                <path d="M180,-21 L210,-21 L210,-17 L197.5,-17 L197.5,0 L192.5,0 L192.5,-17 L180,-17 Z" fill="url(#aluTextMetal)"/>
+              </g>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Navegación Desktop (Pública) -->
+        <nav id="public-nav" class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-600">
+          <a href="#inicio" onclick="navigateTo('store')" class="hover:text-alu-dark transition-colors">Inicio</a>
+          <a href="#catalogo" onclick="navigateTo('store')" class="hover:text-alu-dark transition-colors">Catálogo y Packs</a>
+          <a href="#personalizar" onclick="navigateTo('store')" class="hover:text-alu-dark transition-colors">Personalizar</a>
+          <a href="#como-funciona" onclick="navigateTo('store')" class="hover:text-alu-dark transition-colors">Cómo funciona</a>
+          <a href="#galeria" onclick="navigateTo('store')" class="hover:text-alu-dark transition-colors">Galería</a>
+          <a href="#empresas" onclick="navigateTo('store')" class="hover:text-alu-dark transition-colors">Empresas</a>
+          <a href="#contacto" onclick="navigateTo('store')" class="hover:text-alu-dark transition-colors">Contacto</a>
+        </nav>
+
+        <!-- Acciones derecha: Usuario / Carrito / Menú móvil -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div id="auth-header-slot">
+            <button onclick="openAuthModal('login')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium text-alu-dark bg-gray-100 hover:bg-gray-200 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+              <span class="hidden sm:inline">Entrar / Registro</span>
+            </button>
+          </div>
+
+          <button id="cart-header-btn" onclick="toggleCartDrawer(true)" class="relative inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold text-white bg-alu-dark hover:bg-alu-slate transition-all shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"/></svg>
+            <span class="hidden sm:inline">Carrito</span>
+            <span id="cart-count-badge" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold rounded-full bg-white text-alu-dark">0</span>
+          </button>
+
+          <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl text-gray-700 hover:bg-gray-100 focus:outline-none" aria-label="Abrir menú">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menú Móvil Desplegable -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 bg-white px-4 pt-3 pb-5 space-y-2 shadow-lg">
+      <a href="#inicio" onclick="navigateTo('store'); toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-gray-800 hover:bg-gray-100">Inicio</a>
+      <a href="#catalogo" onclick="navigateTo('store'); toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-gray-800 hover:bg-gray-100">Catálogo y Packs</a>
+      <a href="#personalizar" onclick="navigateTo('store'); toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-gray-800 hover:bg-gray-100">Personalizar cuadro</a>
+      <a href="#como-funciona" onclick="navigateTo('store'); toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-gray-800 hover:bg-gray-100">Cómo funciona</a>
+      <a href="#galeria" onclick="navigateTo('store'); toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-gray-800 hover:bg-gray-100">Galería</a>
+      <a href="#empresas" onclick="navigateTo('store'); toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-gray-800 hover:bg-gray-100">Empresas</a>
+      <a href="#contacto" onclick="navigateTo('store'); toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-base font-medium text-gray-800 hover:bg-gray-100">Contacto</a>
+      <div id="mobile-user-links" class="pt-2 border-t border-gray-100"></div>
+    </div>
+  </header>
+
+  <!-- ==================== VISTA 1: TIENDA PÚBLICA ALUART ==================== -->
+  <main id="view-store">
+
+    <!-- 1. HERO / INICIO -->
+    <section id="inicio" class="relative overflow-hidden bg-gradient-to-b from-alu-light via-white to-white pt-10 pb-16 sm:pt-16 sm:pb-24 border-b border-gray-200/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-900/5 border border-gray-300/80 text-xs font-semibold tracking-wide uppercase text-gray-700">
+              <span class="w-2 h-2 rounded-full bg-alu-dark"></span>
+              Sublimación HD sobre Aluminio · Fabricado en España
+            </div>
+
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-alu-dark leading-[1.08]">
+              Tus recuerdos y diseños, fundidos en <span class="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-600 to-gray-900">aluminio eterno</span>.
+            </h1>
+
+            <p class="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed">
+              Creamos cuadros y placas personalizadas de aluminio mediante sublimación térmica de alta definición. Colores vibrantes, resistencia al agua y acabado metálico de galería desde <strong class="text-alu-dark font-semibold">11,90 € (IVA incluido)</strong>.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-3.5 pt-2">
+              <a href="#personalizar" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl text-base font-semibold text-white bg-alu-dark hover:bg-alu-slate shadow-lg shadow-gray-900/15 transition-all hover:-translate-y-0.5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                Personalizar mi cuadro
+              </a>
+              <a href="#catalogo" class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-base font-semibold text-alu-dark bg-white border border-gray-300 hover:bg-gray-50 transition-all">
+                Ver precios y packs
+              </a>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 pt-4 border-t border-gray-200/80 max-w-xl">
+              <div>
+                <p class="text-sm font-bold text-alu-dark">IVA Incluido</p>
+                <p class="text-xs text-gray-500">Precios finales claros</p>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-alu-dark">Horizontal y Vertical</p>
+                <p class="text-xs text-gray-500">Encuadre a medida</p>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-alu-dark">Packs Multi-Foto</p>
+                <p class="text-xs text-gray-500">Hasta 50 placas</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Composición Visual de Placas de Aluminio -->
+          <div class="lg:col-span-5">
+            <div class="relative mx-auto max-w-md">
+              <div class="absolute -inset-4 rounded-3xl alu-brushed opacity-50 blur-xl"></div>
+              <div class="relative bg-white/90 backdrop-blur-sm border border-gray-200 rounded-3xl p-6 shadow-xl">
+                <div class="grid grid-cols-2 gap-4 items-center">
+                  <div class="col-span-1 aspect-[2/3] rounded-xl overflow-hidden alu-plate-shadow relative border border-white/70 bg-gray-900">
+                    <svg viewBox="0 0 300 450" class="w-full h-full object-cover">
+                      <defs>
+                        <linearGradient id="heroArt1" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stop-color="#1e293b"/>
+                          <stop offset="50%" stop-color="#475569"/>
+                          <stop offset="100%" stop-color="#0f172a"/>
+                        </linearGradient>
+                        <radialGradient id="sunGlow" cx="50%" cy="38%" r="45%">
+                          <stop offset="0%" stop-color="#f8fafc"/>
+                          <stop offset="45%" stop-color="#cbd5e1" stop-opacity="0.6"/>
+                          <stop offset="100%" stop-color="#1e293b" stop-opacity="0"/>
+                        </radialGradient>
+                      </defs>
+                      <rect width="300" height="450" fill="url(#heroArt1)"/>
+                      <circle cx="150" cy="170" r="110" fill="url(#sunGlow)"/>
+                      <path d="M0 320 L95 220 L175 300 L235 245 L300 315 L300 450 L0 450 Z" fill="#090d16"/>
+                      <path d="M0 365 L125 280 L215 350 L300 295 L300 450 L0 450 Z" fill="#18202c" opacity="0.9"/>
+                    </svg>
+                    <div class="absolute inset-0 alu-sheen"></div>
+                    <span class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md bg-black/65 text-white text-[10px] font-medium backdrop-blur-sm">20 × 30 cm · 17,90 €</span>
+                  </div>
+
+                  <div class="col-span-1 space-y-4">
+                    <div class="aspect-[4/3] rounded-xl overflow-hidden alu-plate-shadow relative border border-white/70 bg-gray-100">
+                      <svg viewBox="0 0 400 300" class="w-full h-full">
+                        <defs>
+                          <linearGradient id="heroArt2" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#d97706"/>
+                            <stop offset="50%" stop-color="#9a3412"/>
+                            <stop offset="100%" stop-color="#1c1917"/>
+                          </linearGradient>
+                        </defs>
+                        <rect width="400" height="300" fill="url(#heroArt2)"/>
+                        <circle cx="290" cy="95" r="42" fill="#fef3c7" opacity="0.85"/>
+                        <path d="M0 210 Q120 160 220 205 T400 185 L400 300 L0 300 Z" fill="#1c1917" opacity="0.85"/>
+                      </svg>
+                      <div class="absolute inset-0 alu-sheen"></div>
+                      <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/65 text-white text-[10px] font-medium">20 × 15 cm · 11,90 €</span>
+                    </div>
+
+                    <div class="aspect-[4/3] rounded-xl overflow-hidden alu-plate-shadow relative border border-white/70 alu-brushed flex flex-col items-center justify-center p-4 text-center">
+                      <span class="text-[10px] uppercase tracking-widest text-gray-500 font-semibold">Placa Corporativa</span>
+                      <p class="font-display font-bold text-base text-alu-dark mt-1">ESTUDIO NORTE</p>
+                      <p class="text-[11px] text-gray-600">Arquitectura & Diseño</p>
+                      <div class="absolute inset-0 alu-sheen"></div>
+                      <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/65 text-white text-[10px] font-medium">40 × 30 cm · 28,90 €</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                  <span>Aluminio cromalux HD · 1,15 mm</span>
+                  <span class="font-semibold text-alu-dark">Horizontal o Vertical</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. CATÁLOGO Y PACKS (PRECIOS EXACTOS CON IVA INCLUIDO) -->
+    <section id="catalogo" class="py-16 sm:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Tarifas Oficiales</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-alu-dark mt-1">Catálogo y Packs por Tamaño</h2>
+            <p class="text-gray-600 mt-2 max-w-2xl">
+              Elige entre nuestros tres formatos estándar de aluminio sublimado (disponibles en orientación Horizontal o Vertical). En todos los packs puedes usar una misma fotografía o subir fotos distintas para cada placa.
+            </p>
+          </div>
+          <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-alu-dark text-white text-sm font-semibold self-start md:self-auto shadow-sm">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            Todos los precios incluyen IVA
+          </div>
+        </div>
+
+        <div id="catalog-grid" class="grid grid-cols-1 lg:grid-cols-3 gap-8"></div>
+
+        <p class="text-center text-xs text-gray-500 mt-8">
+          * Todos los precios mostrados son precios finales con <strong>IVA incluido (21%)</strong>. Puedes elegir orientación horizontal o vertical y combinar múltiples fotografías dentro de cada pack.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. PERSONALIZAR (CONFIGURADOR INTERACTIVO DE PRECISIÓN) -->
+    <section id="personalizar" class="py-16 sm:py-24 bg-alu-light border-y border-gray-200/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-10">
+          <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Estudio de Creación AluArt</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-alu-dark mt-1">Personaliza tus placas de aluminio</h2>
+          <p class="text-gray-600 mt-2">
+            Elige el tamaño, selecciona orientación <strong>Horizontal o Vertical</strong>, sube tus fotografías según el número de placas del pack y ajusta el zoom y encuadre exacto sobre la placa.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Columna Izquierda: Vista Previa Realista + Controles de Redimensionado y Encuadre -->
+          <div class="lg:col-span-6 lg:sticky lg:top-24 space-y-5">
+            <div class="bg-white rounded-3xl border border-gray-200 p-5 sm:p-7 shadow-sm">
+              <!-- Cabecera de Previsualización -->
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold uppercase tracking-wider text-gray-500">Vista previa real</span>
+                  <span id="preview-plate-indicator" class="hidden px-2.5 py-0.5 rounded-full bg-alu-dark text-white text-[11px] font-bold">Placa 1 de 1</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span id="preview-orientation-badge" class="px-2.5 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-semibold">Horizontal</span>
+                  <span id="preview-dimension-badge" class="px-3 py-1 rounded-full bg-alu-dark text-white text-xs font-bold">20 × 15 cm</span>
+                </div>
+              </div>
+
+              <!-- Escenario Ambiental + Placa de Aluminio Proporcional Exacta -->
+              <div id="preview-stage-wrapper" class="bg-gradient-to-br from-gray-100 via-gray-200/75 to-gray-100 rounded-2xl p-5 sm:p-8 flex flex-col items-center justify-center min-h-[340px] sm:min-h-[410px] border border-gray-200/80 relative overflow-hidden">
+                <!-- Contenedor de Placa con dimensiones matemáticas exactas (JS calcula width y height reales) -->
+                <div
+                  id="preview-plate-frame"
+                  onmousedown="startDragPan(event)"
+                  ontouchstart="startDragPan(event)"
+                  class="relative rounded-lg overflow-hidden alu-plate-shadow border-2 border-white/90 alu-metal-backing transition-[width,height] duration-300 ease-out flex items-center justify-center select-none"
+                  style="width: 320px; height: 240px;"
+                >
+                  <!-- Placeholder cuando la placa activa no tiene foto -->
+                  <div id="preview-placeholder" class="text-center p-5 select-none pointer-events-none">
+                    <div class="w-12 h-12 rounded-2xl bg-white/90 mx-auto flex items-center justify-center shadow-sm mb-2.5">
+                      <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+                    </div>
+                    <p id="preview-placeholder-title" class="text-sm font-semibold text-gray-700">Sube tu fotografía</p>
+                    <p class="text-[11px] text-gray-500 mt-1">Proporción exacta <span id="preview-ratio-label">20 × 15 cm</span></p>
+                  </div>
+
+                  <!-- Capa de Imagen Redimensionable y Encuadrable sin deformación -->
+                  <div id="preview-image-viewport" class="hidden absolute inset-0 overflow-hidden cursor-grab active:cursor-grabbing">
+                    <img
+                      id="preview-uploaded-img"
+                      src=""
+                      alt="Vista previa personalizada"
+                      draggable="false"
+                      class="absolute top-1/2 left-1/2 max-w-none select-none pointer-events-none transition-transform duration-75"
+                    />
+                  </div>
+
+                  <!-- Guías sutiles de encuadre al arrastrar -->
+                  <div id="preview-crop-grid" class="hidden absolute inset-0 pointer-events-none border border-white/60">
+                    <div class="w-full h-1/3 border-b border-white/30"></div>
+                    <div class="w-full h-1/3 border-b border-white/30"></div>
+                  </div>
+
+                  <!-- Reflejo metálico sutil -->
+                  <div class="absolute inset-0 alu-sheen"></div>
+                </div>
+
+                <!-- Indicador interactivo inferior dentro del escenario -->
+                <div id="preview-drag-hint" class="hidden mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-gray-200 text-[11px] font-medium text-gray-600 shadow-2xs">
+                  <svg class="w-3.5 h-3.5 text-alu-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/></svg>
+                  Arrastra la imagen sobre la placa o usa los controles de abajo para encuadrar
+                </div>
+              </div>
+
+              <!-- PANEL DE HERRAMIENTAS DE REDIMENSIONADO Y ENCUADRE (Visible al cargar foto) -->
+              <div id="framing-controls-panel" class="hidden mt-5 p-4 rounded-2xl bg-alu-light border border-gray-200 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="text-xs font-bold uppercase tracking-wider text-alu-dark">Ajuste y Redimensionado en Placa</span>
+                  <div class="flex items-center gap-1.5">
+                    <button type="button" onclick="autoMatchOrientationToPhoto()" id="btn-auto-orient" class="px-2.5 py-1 rounded-lg bg-white border border-gray-300 hover:border-alu-dark text-[11px] font-semibold text-alu-dark transition-colors">
+                      Adaptar orientación a foto
+                    </button>
+                    <button type="button" onclick="resetActivePlateFraming()" class="px-2.5 py-1 rounded-lg bg-white border border-gray-300 hover:border-alu-dark text-[11px] font-semibold text-gray-600 transition-colors">
+                      Centrar / Restablecer
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Modo de Ajuste: Rellenar Placa (Cover) vs Imagen Completa (Contain) -->
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" id="fit-cover-btn" onclick="setActivePlateFitMode('cover')" class="py-2 px-3 rounded-xl text-xs font-semibold bg-alu-dark text-white transition-all flex items-center justify-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75h16.5v16.5H3.75V3.75z"/></svg>
+                    Rellenar placa (Sin bordes)
+                  </button>
+                  <button type="button" id="fit-contain-btn" onclick="setActivePlateFitMode('contain')" class="py-2 px-3 rounded-xl text-xs font-semibold bg-white border border-gray-300 text-alu-dark hover:bg-gray-50 transition-all flex items-center justify-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5"/></svg>
+                    Imagen completa (Sin recorte)
+                  </button>
+                </div>
+
+                <!-- Control de Zoom -->
+                <div>
+                  <div class="flex items-center justify-between text-xs mb-1">
+                    <label for="framing-zoom-slider" class="font-semibold text-gray-700">Zoom / Escala de imagen</label>
+                    <span id="framing-zoom-value" class="font-display font-bold text-alu-dark">100%</span>
+                  </div>
+                  <input id="framing-zoom-slider" type="range" min="100" max="220" step="1" value="100" oninput="updateActivePlateZoom(this.value)" class="w-full alu-slider" />
+                </div>
+
+                <!-- Controles finos de Posición X / Y -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <div class="flex items-center justify-between text-xs mb-1">
+                      <label for="framing-x-slider" class="font-semibold text-gray-700">Encuadre Horizontal (X)</label>
+                      <span id="framing-x-value" class="font-mono text-[11px] text-gray-500">0%</span>
+                    </div>
+                    <input id="framing-x-slider" type="range" min="-50" max="50" step="1" value="0" oninput="updateActivePlateOffset('x', this.value)" class="w-full alu-slider" />
+                  </div>
+                  <div>
+                    <div class="flex items-center justify-between text-xs mb-1">
+                      <label for="framing-y-slider" class="font-semibold text-gray-700">Encuadre Vertical (Y)</label>
+                      <span id="framing-y-value" class="font-mono text-[11px] text-gray-500">0%</span>
+                    </div>
+                    <input id="framing-y-slider" type="range" min="-50" max="50" step="1" value="0" oninput="updateActivePlateOffset('y', this.value)" class="w-full alu-slider" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Aviso de Calidad -->
+              <div class="mt-4 p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200/80 flex items-start gap-3">
+                <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg>
+                <p class="text-xs text-amber-900 leading-relaxed">
+                  <strong>Aviso importante:</strong> La calidad del resultado final depende de la calidad y resolución de la fotografía proporcionada por el cliente.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Pasos de Configuración -->
+          <div class="lg:col-span-6 bg-white rounded-3xl border border-gray-200 p-6 sm:p-8 shadow-sm space-y-7">
+            <!-- Paso 1: Tamaño y Orientación -->
+            <div class="space-y-4">
+              <label class="flex items-center gap-2 text-sm font-bold text-alu-dark">
+                <span class="w-6 h-6 rounded-full bg-alu-dark text-white text-xs flex items-center justify-center">1</span>
+                Elige el tamaño y la orientación de la placa
+              </label>
+
+              <!-- Selector de Tamaño -->
+              <div class="grid grid-cols-3 gap-3" id="config-size-options">
+                <button type="button" onclick="selectConfigSize('20x15')" data-size="20x15" class="config-size-btn p-3.5 rounded-2xl border-2 border-alu-dark bg-gray-900 text-white text-center transition-all">
+                  <span class="block font-display font-bold text-base" data-size-label="20x15">20 × 15 cm</span>
+                  <span class="block text-xs opacity-80 mt-0.5">Desde 11,90 €</span>
+                </button>
+                <button type="button" onclick="selectConfigSize('20x30')" data-size="20x30" class="config-size-btn p-3.5 rounded-2xl border-2 border-gray-200 bg-white text-alu-dark hover:border-gray-400 text-center transition-all">
+                  <span class="block font-display font-bold text-base" data-size-label="20x30">30 × 20 cm</span>
+                  <span class="block text-xs text-gray-500 mt-0.5">Desde 17,90 €</span>
+                </button>
+                <button type="button" onclick="selectConfigSize('30x40')" data-size="30x40" class="config-size-btn p-3.5 rounded-2xl border-2 border-gray-200 bg-white text-alu-dark hover:border-gray-400 text-center transition-all">
+                  <span class="block font-display font-bold text-base" data-size-label="30x40">40 × 30 cm</span>
+                  <span class="block text-xs text-gray-500 mt-0.5">Desde 28,90 €</span>
+                </button>
+              </div>
+
+              <!-- Selector de Orientación Horizontal / Vertical -->
+              <div class="p-3 rounded-2xl bg-alu-light border border-gray-200">
+                <span class="block text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-2">Orientación de la placa</span>
+                <div class="grid grid-cols-2 gap-2.5">
+                  <button type="button" id="orient-horizontal-btn" onclick="selectConfigOrientation('horizontal')" class="py-2.5 px-4 rounded-xl border-2 border-alu-dark bg-alu-dark text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2.5 transition-all">
+                    <span class="w-5 h-3.5 rounded-xs border-2 border-current inline-block"></span>
+                    Horizontal (Apaisado)
+                  </button>
+                  <button type="button" id="orient-vertical-btn" onclick="selectConfigOrientation('vertical')" class="py-2.5 px-4 rounded-xl border-2 border-gray-200 bg-white text-alu-dark hover:border-gray-400 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2.5 transition-all">
+                    <span class="w-3.5 h-5 rounded-xs border-2 border-current inline-block"></span>
+                    Vertical (Retrato)
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paso 2: Cantidad / Pack -->
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <label class="flex items-center gap-2 text-sm font-bold text-alu-dark">
+                  <span class="w-6 h-6 rounded-full bg-alu-dark text-white text-xs flex items-center justify-center">2</span>
+                  Elige cantidad o pack ahorro
+                </label>
+                <span class="text-xs font-medium text-gray-500">IVA incluido</span>
+              </div>
+              <div id="config-pack-options" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div>
+            </div>
+
+            <!-- Paso 3: Subida Inteligente de Fotografías según el número de placas -->
+            <div class="space-y-3.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <label class="flex items-center gap-2 text-sm font-bold text-alu-dark">
+                  <span class="w-6 h-6 rounded-full bg-alu-dark text-white text-xs flex items-center justify-center">3</span>
+                  <span id="step3-heading-text">Sube tu fotografía o diseño</span>
+                </label>
+                <span id="step3-progress-pill" class="px-2.5 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-bold">0 / 1 lista</span>
+              </div>
+
+              <!-- Modo Multi-Placa (Solo visible cuando qty > 1) -->
+              <div id="pack-photo-mode-box" class="hidden p-3.5 rounded-2xl bg-gray-50 border border-gray-200 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-alu-dark">¿Cómo quieres usar tus fotos en este pack?</span>
+                  <span id="pack-qty-badge" class="text-[11px] font-semibold text-gray-500">3 placas</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <button type="button" id="pack-mode-diff-btn" onclick="setPackPhotoMode('different')" class="py-2.5 px-3 rounded-xl border-2 border-alu-dark bg-alu-dark text-white text-xs font-semibold text-left flex items-center gap-2 transition-all">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+                    Fotos diferentes por placa
+                  </button>
+                  <button type="button" id="pack-mode-same-btn" onclick="setPackPhotoMode('same')" class="py-2.5 px-3 rounded-xl border-2 border-gray-200 bg-white text-alu-dark hover:border-gray-400 text-xs font-semibold text-left flex items-center gap-2 transition-all">
+                    <span class="w-2 h-2 rounded-full bg-gray-400 shrink-0"></span>
+                    Misma foto en todas las placas
+                  </button>
+                </div>
+
+                <!-- Botón de subida en lote cuando elige fotos diferentes -->
+                <div id="batch-upload-bar" class="pt-1 flex flex-wrap items-center justify-between gap-2 border-t border-gray-200/80">
+                  <span class="text-[11px] text-gray-600">Puedes seleccionar varias fotos a la vez o ir placa por placa:</span>
+                  <label for="batch-photo-upload-input" class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-gray-300 hover:border-alu-dark text-xs font-semibold text-alu-dark shadow-2xs transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                    Subir varias fotos de golpe
+                    <input id="batch-photo-upload-input" type="file" accept="image/*" multiple class="hidden" onchange="handleBatchPhotoUpload(event)" />
+                  </label>
+                </div>
+              </div>
+
+              <!-- Selector Visual de Placas del Pack (Chips interactivos) -->
+              <div id="pack-plates-selector-wrapper" class="hidden space-y-2">
+                <div class="flex items-center justify-between text-[11px] text-gray-500">
+                  <span>Selecciona una placa para verla y encuadrarla en la vista previa:</span>
+                  <button type="button" onclick="replicateActivePhotoToAll()" id="btn-copy-to-all" class="hidden font-semibold text-alu-dark underline hover:text-gray-600">
+                    Copiar esta foto a todas
+                  </button>
+                </div>
+                <div id="pack-plates-grid" class="grid grid-cols-3 sm:grid-cols-5 gap-2 max-h-44 overflow-y-auto p-1"></div>
+              </div>
+
+              <!-- Zona Dropzone para la placa activa -->
+              <label for="photo-upload-input" class="flex flex-col items-center justify-center w-full p-5 border-2 border-dashed border-gray-300 rounded-2xl cursor-pointer bg-gray-50/70 hover:bg-gray-100/80 hover:border-alu-dark transition-all">
+                <svg class="w-7 h-7 text-gray-500 mb-1.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                <span id="upload-file-label" class="text-sm font-semibold text-alu-dark text-center">Haz clic para seleccionar tu foto (JPG, PNG, WEBP)</span>
+                <span id="upload-file-sublabel" class="text-xs text-gray-500 mt-1">Se conservará en alta calidad para producción</span>
+                <input id="photo-upload-input" type="file" accept="image/*" class="hidden" onchange="handleSinglePlatePhotoUpload(event)" />
+              </label>
+            </div>
+
+            <!-- Paso 4: Comentarios o instrucciones -->
+            <div>
+              <label for="config-comments" class="flex items-center gap-2 text-sm font-bold text-alu-dark mb-2">
+                <span class="w-6 h-6 rounded-full bg-alu-dark text-white text-xs flex items-center justify-center">4</span>
+                Instrucciones o comentarios (opcional)
+              </label>
+              <textarea id="config-comments" rows="2" placeholder="Ej.: Centrar el rostro, ajustar brillo, añadir fecha en esquina inferior..." class="w-full rounded-2xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark focus:border-transparent"></textarea>
+            </div>
+
+            <!-- Resumen y Botón Añadir al Carrito -->
+            <div class="pt-4 border-t border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span class="text-xs text-gray-500 block">Total seleccionado (IVA incluido)</span>
+                <div class="flex items-baseline gap-2">
+                  <span id="config-total-price" class="font-display text-3xl font-bold text-alu-dark">11,90 €</span>
+                  <span id="config-unit-price" class="text-xs text-gray-500">(11,90 € / ud.)</span>
+                </div>
+              </div>
+              <button type="button" onclick="addConfiguredItemToCart()" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl text-base font-semibold text-white bg-alu-dark hover:bg-alu-slate transition-all shadow-md">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                Añadir al carrito
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. CÓMO FUNCIONA -->
+    <section id="como-funciona" class="py-16 sm:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Proceso Artesanal y Tecnológico</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-alu-dark mt-1">Cómo funciona AluArt</h2>
+          <p class="text-gray-600 mt-3">
+            De tu galería digital a una pieza metálica inalterable en 5 pasos sencillos.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div class="p-6 rounded-3xl bg-alu-light border border-gray-200/70 relative">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-alu-dark text-white font-display font-bold text-sm mb-4">01</span>
+            <h3 class="font-display font-bold text-lg text-alu-dark">Elige tu cuadro</h3>
+            <p class="text-sm text-gray-600 mt-2">Selecciona formato, orientación horizontal o vertical y el pack que prefieras.</p>
+          </div>
+          <div class="p-6 rounded-3xl bg-alu-light border border-gray-200/70 relative">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-alu-dark text-white font-display font-bold text-sm mb-4">02</span>
+            <h3 class="font-display font-bold text-lg text-alu-dark">Sube y encuadra</h3>
+            <p class="text-sm text-gray-600 mt-2">Carga una o varias fotos según tu pack y ajusta el zoom en la vista previa.</p>
+          </div>
+          <div class="p-6 rounded-3xl bg-alu-light border border-gray-200/70 relative">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-alu-dark text-white font-display font-bold text-sm mb-4">03</span>
+            <h3 class="font-display font-bold text-lg text-alu-dark">Preparamos tu diseño</h3>
+            <p class="text-sm text-gray-600 mt-2">Revisamos encuadre, perfil de color y nitidez antes de pasar a producción.</p>
+          </div>
+          <div class="p-6 rounded-3xl bg-alu-light border border-gray-200/70 relative">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-alu-dark text-white font-display font-bold text-sm mb-4">04</span>
+            <h3 class="font-display font-bold text-lg text-alu-dark">Sublimamos sobre aluminio</h3>
+            <p class="text-sm text-gray-600 mt-2">Fundimos las tintas directamente en el recubrimiento del aluminio a alta temperatura.</p>
+          </div>
+          <div class="p-6 rounded-3xl bg-alu-light border border-gray-200/70 relative sm:col-span-2 lg:col-span-1">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-alu-dark text-white font-display font-bold text-sm mb-4">05</span>
+            <h3 class="font-display font-bold text-lg text-alu-dark">Recibes tu pedido</h3>
+            <p class="text-sm text-gray-600 mt-2">Enviamos tu cuadro protegido a domicilio con seguimiento paso a paso.</p>
+          </div>
+        </div>
+
+        <div class="mt-10 p-5 sm:p-6 rounded-3xl alu-dark-gradient text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-sm sm:text-base">Recomendación de impresión en alta definición</p>
+              <p class="text-xs sm:text-sm text-gray-300 mt-0.5">
+                La calidad del resultado final depende de la calidad y resolución de la fotografía proporcionada por el cliente. Evita capturas de pantalla comprimidas.
+              </p>
+            </div>
+          </div>
+          <a href="#personalizar" class="px-5 py-2.5 rounded-xl bg-white text-alu-dark text-sm font-semibold hover:bg-gray-100 transition-colors shrink-0">
+            Subir foto ahora
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. GALERÍA -->
+    <section id="galeria" class="py-16 sm:py-24 bg-alu-light border-t border-gray-200/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Inspiración Real</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-alu-dark mt-1">Galería de Acabados AluArt</h2>
+          </div>
+          <p class="text-sm text-gray-600 max-w-md">
+            Desde retratos familiares hasta placas corporativas de aluminio cepillado.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="group bg-white rounded-3xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all">
+            <div class="aspect-[4/3] rounded-2xl overflow-hidden relative alu-plate-shadow mb-4">
+              <svg viewBox="0 0 400 300" class="w-full h-full">
+                <defs>
+                  <linearGradient id="gal1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#334155"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#gal1)"/>
+                <circle cx="200" cy="135" r="55" fill="#e2e8f0" opacity="0.9"/>
+                <path d="M110 270 C110 215 290 215 290 270 Z" fill="#94a3b8"/>
+              </svg>
+              <div class="absolute inset-0 alu-sheen"></div>
+            </div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-gray-400">Retratos & Familias</span>
+            <h3 class="font-display font-bold text-base text-alu-dark mt-0.5">Blanco y Negro Metálico</h3>
+            <p class="text-xs text-gray-500 mt-1">Contraste profundo donde los blancos toman el brillo natural del aluminio.</p>
+          </div>
+
+          <div class="group bg-white rounded-3xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all">
+            <div class="aspect-[4/3] rounded-2xl overflow-hidden relative alu-plate-shadow mb-4">
+              <svg viewBox="0 0 400 300" class="w-full h-full">
+                <defs>
+                  <linearGradient id="gal2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#065f46"/><stop offset="50%" stop-color="#0d9488"/><stop offset="100%" stop-color="#1e3a8a"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#gal2)"/>
+                <path d="M0 190 Q100 130 200 180 T400 160 L400 300 L0 300 Z" fill="#042f2e" opacity="0.7"/>
+              </svg>
+              <div class="absolute inset-0 alu-sheen"></div>
+            </div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-gray-400">Viajes & Paisajes</span>
+            <h3 class="font-display font-bold text-base text-alu-dark mt-0.5">Luminosidad Cromalux HD</h3>
+            <p class="text-xs text-gray-500 mt-1">Saturación cromática superior sin reflejos de cristal ni marcos pesados.</p>
+          </div>
+
+          <div class="group bg-white rounded-3xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all">
+            <div class="aspect-[4/3] rounded-2xl overflow-hidden relative alu-plate-shadow mb-4">
+              <svg viewBox="0 0 400 300" class="w-full h-full">
+                <rect width="400" height="300" fill="#18181b"/>
+                <polygon points="200,45 310,245 90,245" fill="none" stroke="#e4e4e7" stroke-width="6"/>
+                <circle cx="200" cy="175" r="36" fill="#a1a1aa" opacity="0.8"/>
+              </svg>
+              <div class="absolute inset-0 alu-sheen"></div>
+            </div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-gray-400">Arte & Interiorismo</span>
+            <h3 class="font-display font-bold text-base text-alu-dark mt-0.5">Composición Mural 30×40</h3>
+            <p class="text-xs text-gray-500 mt-1">Ideal para salones modernos, estudios creativos y galerías.</p>
+          </div>
+
+          <div class="group bg-white rounded-3xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all">
+            <div class="aspect-[4/3] rounded-2xl overflow-hidden relative alu-plate-shadow mb-4 alu-brushed flex flex-col items-center justify-center p-5 text-center">
+              <div class="w-10 h-10 rounded-full border-2 border-alu-dark flex items-center justify-center font-display font-bold text-sm mb-2">V</div>
+              <p class="font-display font-bold text-sm tracking-widest text-alu-dark">CLÍNICA VALLE</p>
+              <p class="text-[11px] text-gray-600 mt-0.5">Planta 2 · Dirección Médica</p>
+              <div class="absolute inset-0 alu-sheen"></div>
+            </div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-gray-400">Señalética & Placas</span>
+            <h3 class="font-display font-bold text-base text-alu-dark mt-0.5">Placas Corporativas</h3>
+            <p class="text-xs text-gray-500 mt-1">Inalterables frente a humedad y limpieza diaria en despachos y comercios.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. EMPRESAS (B2B) -->
+    <section id="empresas" class="py-16 sm:py-24 alu-dark-gradient text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7 space-y-6">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/10 text-gray-200 text-xs font-semibold uppercase tracking-wider">
+              AluArt Empresas & Profesionales
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold leading-tight">
+              Soluciones en aluminio para estudios fotográficos, hoteles, tiendas y marcas.
+            </h2>
+            <p class="text-gray-300 text-base sm:text-lg leading-relaxed">
+              Aprovecha nuestros <strong class="text-white">Packs de 20 y 50 unidades</strong> con tarifas profesionales (IVA incluido) para tiradas de decoración, regalos corporativos, placas identificativas o venta directa en tu estudio.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <h3 class="font-semibold text-white text-sm">Fotógrafos y Estudios</h3>
+                <p class="text-xs text-gray-400 mt-1">Entrega tus reportajes de boda o comunión en soporte rígido premium.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <h3 class="font-semibold text-white text-sm">Señalética y Hostelería</h3>
+                <p class="text-xs text-gray-400 mt-1">Placas de habitación, códigos QR, menús y directorios resistentes.</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-3 pt-2">
+              <a href="#catalogo" class="px-6 py-3.5 rounded-2xl bg-white text-alu-dark font-semibold text-sm hover:bg-gray-100 transition-colors">
+                Ver Packs 20 y 50 uds.
+              </a>
+              <a href="#contacto" class="px-6 py-3.5 rounded-2xl bg-white/10 text-white border border-white/20 font-semibold text-sm hover:bg-white/20 transition-colors">
+                Solicitar presupuesto B2B
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-3xl p-6 sm:p-8 space-y-4">
+              <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <span class="font-display font-bold text-lg">Tarifas Volumen (IVA incl.)</span>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold">Mejor precio/ud</span>
+              </div>
+              <div class="space-y-3 text-sm">
+                <div class="flex items-center justify-between p-3 rounded-xl bg-black/25">
+                  <div>
+                    <p class="font-semibold">Pack 50 · 20 × 15 cm</p>
+                    <p class="text-xs text-gray-400">Sale a 8,99 € / unidad</p>
+                  </div>
+                  <span class="font-display font-bold text-lg">449,90 €</span>
+                </div>
+                <div class="flex items-center justify-between p-3 rounded-xl bg-black/25">
+                  <div>
+                    <p class="font-semibold">Pack 50 · 20 × 30 cm</p>
+                    <p class="text-xs text-gray-400">Sale a 12,99 € / unidad</p>
+                  </div>
+                  <span class="font-display font-bold text-lg">649,90 €</span>
+                </div>
+                <div class="flex items-center justify-between p-3 rounded-xl bg-black/25">
+                  <div>
+                    <p class="font-semibold">Pack 50 · 30 × 40 cm</p>
+                    <p class="text-xs text-gray-400">Sale a 21,99 € / unidad</p>
+                  </div>
+                  <span class="font-display font-bold text-lg">1.099,90 €</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. CONTACTO -->
+    <section id="contacto" class="py-16 sm:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div class="lg:col-span-5 space-y-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Atención al Cliente</span>
+              <h2 class="font-display text-3xl sm:text-4xl font-bold text-alu-dark mt-1">Contacta con AluArt</h2>
+              <p class="text-gray-600 mt-2">
+                ¿Tienes dudas sobre la resolución de tu fotografía o necesitas un pedido especial? Nuestro equipo te asesora sin compromiso.
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <div class="p-4 rounded-2xl bg-alu-light border border-gray-200 flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-alu-dark text-white flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-bold text-alu-dark text-base">+34 600 123 456</span>
+                    <span class="px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 text-[11px] font-semibold">Teléfono provisional</span>
+                  </div>
+                  <p class="text-xs text-gray-500 mt-0.5">Lunes a Viernes de 9:30 a 18:30 h</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-bold text-emerald-950 text-sm">WhatsApp Business</p>
+                    <p class="text-xs text-emerald-800">Consulta directa por chat (+34 600 123 456)</p>
+                  </div>
+                </div>
+                <button type="button" onclick="openWhatsAppBridge('Hola AluArt, me gustaría hacer una consulta sobre un cuadro personalizado.')" class="px-3.5 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition-colors shrink-0">
+                  Abrir chat
+                </button>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-alu-light border border-gray-200 flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl bg-alu-dark text-white flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                </div>
+                <div>
+                  <p class="font-bold text-alu-dark text-sm">hola@aluart.es</p>
+                  <p class="text-xs text-gray-500">Respuesta garantizada en menos de 24 h laborables</p>
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Síguenos en redes sociales</p>
+                <div class="flex flex-wrap items-center gap-3">
+                  <a href="#contacto" onclick="showToast('Perfil oficial @aluart.es en Instagram', 'info')" class="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-alu-dark transition-colors">Instagram</a>
+                  <a href="#contacto" onclick="showToast('Página oficial AluArt España en Facebook', 'info')" class="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-alu-dark transition-colors">Facebook</a>
+                  <a href="#contacto" onclick="showToast('Canal @aluart.es en TikTok', 'info')" class="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-alu-dark transition-colors">TikTok</a>
+                  <a href="#contacto" onclick="showToast('Tableros de inspiración AluArt en Pinterest', 'info')" class="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-alu-dark transition-colors">Pinterest</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7">
+            <form onsubmit="handleContactSubmit(event)" class="bg-alu-light rounded-3xl border border-gray-200 p-6 sm:p-8 space-y-5">
+              <h3 class="font-display font-bold text-xl text-alu-dark">Envíanos un mensaje</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nombre completo *</label>
+                  <input type="text" required placeholder="Tu nombre" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-700 mb-1.5">Correo electrónico *</label>
+                  <input type="email" required placeholder="tu@email.com" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1.5">Asunto</label>
+                <select class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark">
+                  <option>Consulta sobre un cuadro personalizado</option>
+                  <option>Pedido de Packs para Empresa / Estudio</option>
+                  <option>Seguimiento de mi pedido</option>
+                  <option>Otra consulta</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1.5">Mensaje *</label>
+                <textarea rows="4" required placeholder="Cuéntanos qué necesitas..." class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark"></textarea>
+              </div>
+              <button type="submit" class="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-alu-dark text-white font-semibold text-sm hover:bg-alu-slate transition-colors">
+                Enviar consulta
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== VISTA 2: MI CUENTA Y MIS PEDIDOS (CLIENTE AUTENTICADO) ==================== -->
+  <section id="view-customer" class="hidden py-12 sm:py-16 bg-alu-light min-h-[80vh]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <button onclick="navigateTo('store')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-alu-dark mb-2">
+            ← Volver a la tienda
+          </button>
+          <h1 class="font-display text-3xl font-bold text-alu-dark">Mi Cuenta y Mis Pedidos</h1>
+          <p id="customer-welcome-subtitle" class="text-sm text-gray-600 mt-1">Gestiona tus datos personales y sigue el estado de tus cuadros en tiempo real.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="#personalizar" onclick="navigateTo('store')" class="px-4 py-2.5 rounded-xl bg-alu-dark text-white text-sm font-semibold hover:bg-alu-slate transition-colors">
+            + Nuevo pedido
+          </a>
+          <button onclick="logoutUser()" class="px-4 py-2.5 rounded-xl bg-white border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-4">
+          <form onsubmit="handleUpdateCustomerProfile(event)" class="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm space-y-4">
+            <div class="flex items-center gap-3 pb-4 border-b border-gray-100">
+              <div id="customer-avatar-initials" class="w-12 h-12 rounded-2xl bg-alu-dark text-white font-display font-bold text-lg flex items-center justify-center">CL</div>
+              <div>
+                <h2 class="font-display font-bold text-base text-alu-dark">Datos de cliente</h2>
+                <p class="text-xs text-gray-500">Se usarán en tus próximos pedidos</p>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Nombre completo</label>
+              <input id="prof-name" type="text" required class="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Email</label>
+              <input id="prof-email" type="email" disabled class="w-full rounded-xl border border-gray-200 bg-gray-100 text-gray-500 px-3.5 py-2.5 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Teléfono</label>
+              <input id="prof-phone" type="tel" placeholder="+34 600 000 000" class="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Dirección de envío habitual</label>
+              <textarea id="prof-address" rows="2" placeholder="Calle, número, piso, CP, ciudad..." class="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark"></textarea>
+            </div>
+            <button type="submit" class="w-full py-3 rounded-xl bg-alu-dark text-white text-sm font-semibold hover:bg-alu-slate transition-colors">
+              Guardar cambios
+            </button>
+          </form>
+        </div>
+
+        <div class="lg:col-span-8 space-y-5">
+          <div class="flex items-center justify-between">
+            <h2 class="font-display font-bold text-xl text-alu-dark">Historial y seguimiento de pedidos</h2>
+            <span id="customer-orders-count" class="text-xs font-semibold px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-700">0 pedidos</span>
+          </div>
+          <div id="customer-orders-list" class="space-y-5"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== VISTA 3: PANEL DE ADMINISTRACIÓN DE ALUART (EXCLUSIVO ADMIN) ==================== -->
+  <section id="view-admin" class="hidden py-10 sm:py-14 bg-alu-light min-h-[85vh]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="bg-alu-dark text-white rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-lg">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-semibold text-emerald-300 mb-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Sesión Privada de Administración Activa
+          </div>
+          <h1 class="font-display text-2xl sm:text-3xl font-bold">Panel de administración de AluArt</h1>
+          <p class="text-sm text-gray-400 mt-1">Gestión centralizada de producción, archivos originales, orientaciones y encuadres de clientes.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <button onclick="navigateTo('store')" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-colors">
+            Ver tienda pública
+          </button>
+          <button onclick="logoutUser()" class="px-4 py-2.5 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-200 border border-red-500/30 text-sm font-semibold transition-colors">
+            Cerrar sesión Admin
+          </button>
+        </div>
+      </div>
+
+      <!-- Banner de Notificaciones de Nuevos Pedidos -->
+      <div id="admin-new-orders-banner" class="hidden p-4 rounded-2xl bg-amber-50 border border-amber-300 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+          </span>
+          <div>
+            <p id="admin-new-orders-text" class="text-sm font-bold text-amber-950">Tienes pedidos nuevos pendientes de revisión</p>
+            <p class="text-xs text-amber-800">Revisa las fotografías originales, orientación y encuadre del cliente antes de producir.</p>
+          </div>
+        </div>
+        <button onclick="dismissAdminAlerts()" class="px-3 py-1.5 rounded-xl bg-amber-200/70 hover:bg-amber-200 text-amber-950 text-xs font-semibold shrink-0">
+          Marcar leídos
+        </button>
+      </div>
+
+      <!-- Resumen KPIs -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
+          <span class="text-xs font-semibold text-gray-500 uppercase">Pedidos pendientes</span>
+          <p id="kpi-pending" class="font-display text-3xl font-bold text-amber-600 mt-1">0</p>
+          <span class="text-[11px] text-gray-400">Recibidos / Preparación</span>
+        </div>
+        <div class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
+          <span class="text-xs font-semibold text-gray-500 uppercase">En producción</span>
+          <p id="kpi-production" class="font-display text-3xl font-bold text-blue-600 mt-1">0</p>
+          <span class="text-[11px] text-gray-400">Sublimación en curso</span>
+        </div>
+        <div class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
+          <span class="text-xs font-semibold text-gray-500 uppercase">Enviados</span>
+          <p id="kpi-shipped" class="font-display text-3xl font-bold text-indigo-600 mt-1">0</p>
+          <span class="text-[11px] text-gray-400">En tránsito courier</span>
+        </div>
+        <div class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
+          <span class="text-xs font-semibold text-gray-500 uppercase">Entregados</span>
+          <p id="kpi-delivered" class="font-display text-3xl font-bold text-emerald-600 mt-1">0</p>
+          <span class="text-[11px] text-gray-400">Completados con éxito</span>
+        </div>
+        <div class="col-span-2 sm:col-span-1 bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
+          <span class="text-xs font-semibold text-gray-500 uppercase">Facturación (IVA incl.)</span>
+          <p id="kpi-revenue" class="font-display text-2xl sm:text-3xl font-bold text-alu-dark mt-1">0,00 €</p>
+          <span class="text-[11px] text-gray-400">Pedidos no cancelados</span>
+        </div>
+      </div>
+
+      <!-- Barra de Búsqueda, Filtros y Ordenación -->
+      <div class="bg-white rounded-3xl border border-gray-200 p-5 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <div class="md:col-span-5">
+            <label class="block text-[11px] font-bold uppercase text-gray-500 mb-1">Buscar pedido</label>
+            <input id="admin-search-input" type="text" oninput="renderAdminOrders()" placeholder="Nº pedido (ALU-2026-...), nombre o email..." class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+          </div>
+          <div class="md:col-span-4">
+            <label class="block text-[11px] font-bold uppercase text-gray-500 mb-1">Filtrar por estado</label>
+            <select id="admin-status-filter" onchange="renderAdminOrders()" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-alu-dark">
+              <option value="ALL">Todos los estados</option>
+              <option value="Pedido recibido">Pedido recibido</option>
+              <option value="Pago confirmado">Pago confirmado</option>
+              <option value="En preparación">En preparación</option>
+              <option value="En producción">En producción</option>
+              <option value="Preparado">Preparado</option>
+              <option value="Enviado">Enviado</option>
+              <option value="Entregado">Entregado</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+          <div class="md:col-span-3">
+            <label class="block text-[11px] font-bold uppercase text-gray-500 mb-1">Ordenar por fecha</label>
+            <select id="admin-sort-select" onchange="renderAdminOrders()" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-alu-dark">
+              <option value="desc">Más recientes primero</option>
+              <option value="asc">Más antiguos primero</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla / Listado de Pedidos -->
+      <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-200 text-[11px] font-bold uppercase tracking-wider text-gray-500">
+                <th class="py-4 px-5">Pedido / Fecha</th>
+                <th class="py-4 px-5">Cliente</th>
+                <th class="py-4 px-5">Productos, Orientación y Placas</th>
+                <th class="py-4 px-5">Fotos</th>
+                <th class="py-4 px-5">Total (IVA incl.)</th>
+                <th class="py-4 px-5">Estado actual</th>
+                <th class="py-4 px-5 text-right">Gestión</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-tbody" class="divide-y divide-gray-100 text-sm"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER PÚBLICO ==================== -->
+  <footer class="bg-alu-dark text-gray-400 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-gray-800">
+        <div class="md:col-span-2 space-y-4">
+          <div class="w-36 bg-white px-3 py-2 rounded-xl inline-block">
+            <svg viewBox="0 0 260 145" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="122,12 58,108 182,108 172,93 90,93 122,44 139,70 156,70" fill="#111214"/>
+              <polygon points="122,74 107,93 137,93" fill="#9ca3af"/>
+              <polygon points="131,12 152,12 214,108 190,108 140,28" fill="#9ca3af"/>
+              <g transform="translate(16, 138)">
+                <path d="M0,0 L14,-21 L28,0 L23,0 L14,-14 L5,0 Z" fill="#111214"/>
+                <path d="M36,-21 L41,-21 L41,-4 L59,-4 L59,0 L36,0 Z" fill="#111214"/>
+                <path d="M67,-21 L72,-21 L72,-7 C72,-4 74,-3 78,-3 L86,-3 C90,-3 92,-4 92,-7 L92,-21 L97,-21 L97,-7 C97,-1 93,0 86,0 L78,0 C71,0 67,-1 67,-7 Z" fill="#111214"/>
+                <path d="M107,0 L121,-21 L135,0 L130,0 L121,-14 L112,0 Z" fill="#6b7280"/>
+                <path d="M144,-21 L164,-21 C170,-21 173,-18 173,-14 C173,-10 170,-8 165,-7 L174,0 L168,0 L159,-7 L149,-7 L149,0 L144,0 Z M149,-17 L149,-11 L163,-11 C166,-11 168,-12 168,-14 C168,-16 166,-17 163,-17 Z" fill="#6b7280"/>
+                <path d="M180,-21 L210,-21 L210,-17 L197.5,-17 L197.5,0 L192.5,0 L192.5,-17 L180,-17 Z" fill="#6b7280"/>
+              </g>
+            </svg>
+          </div>
+          <p class="text-sm max-w-md leading-relaxed">
+            Especialistas en cuadros y placas personalizadas de aluminio mediante sublimación térmica de alta definición. Calidad de galería para hogares y empresas en toda España.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-3">Navegación</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#inicio" onclick="navigateTo('store')" class="hover:text-white transition-colors">Inicio</a></li>
+            <li><a href="#catalogo" onclick="navigateTo('store')" class="hover:text-white transition-colors">Catálogo y Packs</a></li>
+            <li><a href="#personalizar" onclick="navigateTo('store')" class="hover:text-white transition-colors">Personalizar</a></li>
+            <li><a href="#como-funciona" onclick="navigateTo('store')" class="hover:text-white transition-colors">Cómo funciona</a></li>
+            <li><a href="#empresas" onclick="navigateTo('store')" class="hover:text-white transition-colors">Empresas</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-3">Atención al cliente</h4>
+          <ul class="space-y-2 text-sm">
+            <li>Email: hola@aluart.es</li>
+            <li>Tel.: +34 600 123 456 <span class="text-xs text-amber-400">(Provisional)</span></li>
+            <li>Todos los precios incluyen IVA</li>
+            <li><button onclick="openAuthModal('login')" class="hover:text-white transition-colors">Acceso clientes</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <p>© 2026 AluArt España. Todos los derechos reservados.</p>
+        <p>Sublimación HD sobre Aluminio · Envíos a toda España</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== DRAWER CARRITO Y CHECKOUT ==================== -->
+  <div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+    <div onclick="toggleCartDrawer(false)" class="absolute inset-0 bg-black/50 backdrop-blur-xs"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-full max-w-lg bg-white shadow-2xl flex flex-col">
+      <div class="px-6 py-5 border-b border-gray-200 flex items-center justify-between">
+        <div>
+          <h2 class="font-display font-bold text-xl text-alu-dark">Tu Carrito AluArt</h2>
+          <p class="text-xs text-gray-500">Todos los precios incluyen IVA</p>
+        </div>
+        <button onclick="toggleCartDrawer(false)" class="p-2 rounded-xl text-gray-500 hover:bg-gray-100">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div id="cart-drawer-body" class="flex-1 overflow-y-auto p-6 space-y-6">
+        <div id="cart-items-container" class="space-y-4"></div>
+
+        <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="hidden pt-6 border-t border-gray-200 space-y-4">
+          <h3 class="font-display font-bold text-base text-alu-dark">Datos de envío y confirmación</h3>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Nombre y apellidos *</label>
+            <input id="chk-name" type="text" required placeholder="Ej.: Laura Gómez Pérez" class="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Teléfono *</label>
+              <input id="chk-phone" type="tel" required placeholder="+34 600 000 000" class="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Email *</label>
+              <input id="chk-email" type="email" required placeholder="tu@email.com" class="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Dirección completa de envío *</label>
+            <textarea id="chk-address" rows="2" required placeholder="Calle, número, piso, código postal, ciudad y provincia" class="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark"></textarea>
+          </div>
+          <div class="p-3 rounded-xl bg-gray-50 border border-gray-200 text-xs text-gray-600">
+            Recibirás al instante tu número único de seguimiento (<strong class="text-alu-dark">ALU-2026-XXXX</strong>) y confirmación por correo electrónico.
+          </div>
+          <button type="submit" class="w-full py-4 rounded-2xl bg-alu-dark text-white font-semibold text-base hover:bg-alu-slate transition-all shadow-md">
+            Confirmar pedido
+          </button>
+        </form>
+      </div>
+
+      <div id="cart-drawer-footer" class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
+        <span class="text-sm font-medium text-gray-600">Total (IVA incluido)</span>
+        <span id="cart-total-amount" class="font-display text-2xl font-bold text-alu-dark">0,00 €</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL INICIO DE SESIÓN / REGISTRO ==================== -->
+  <div id="auth-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div onclick="closeAuthModal()" class="absolute inset-0 bg-black/60 backdrop-blur-xs"></div>
+    <div class="relative bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-gray-200 z-10">
+      <button onclick="closeAuthModal()" class="absolute top-5 right-5 p-2 rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-700">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="w-32 mx-auto mb-5">
+        <svg viewBox="0 0 260 145" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="122,12 58,108 182,108 172,93 90,93 122,44 139,70 156,70" fill="#111214"/>
+          <polygon points="122,74 107,93 137,93" fill="#9ca3af"/>
+          <polygon points="131,12 152,12 214,108 190,108 140,28" fill="#9ca3af"/>
+          <g transform="translate(16, 138)">
+            <path d="M0,0 L14,-21 L28,0 L23,0 L14,-14 L5,0 Z" fill="#111214"/>
+            <path d="M36,-21 L41,-21 L41,-4 L59,-4 L59,0 L36,0 Z" fill="#111214"/>
+            <path d="M67,-21 L72,-21 L72,-7 C72,-4 74,-3 78,-3 L86,-3 C90,-3 92,-4 92,-7 L92,-21 L97,-21 L97,-7 C97,-1 93,0 86,0 L78,0 C71,0 67,-1 67,-7 Z" fill="#111214"/>
+            <path d="M107,0 L121,-21 L135,0 L130,0 L121,-14 L112,0 Z" fill="#6b7280"/>
+            <path d="M144,-21 L164,-21 C170,-21 173,-18 173,-14 C173,-10 170,-8 165,-7 L174,0 L168,0 L159,-7 L149,-7 L149,0 L144,0 Z M149,-17 L149,-11 L163,-11 C166,-11 168,-12 168,-14 C168,-16 166,-17 163,-17 Z" fill="#6b7280"/>
+            <path d="M180,-21 L210,-21 L210,-17 L197.5,-17 L197.5,0 L192.5,0 L192.5,-17 L180,-17 Z" fill="#6b7280"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-gray-100 mb-6">
+        <button id="tab-login-btn" type="button" onclick="switchAuthTab('login')" class="py-2.5 rounded-xl text-sm font-semibold bg-white text-alu-dark shadow-xs transition-all">
+          Iniciar sesión
+        </button>
+        <button id="tab-register-btn" type="button" onclick="switchAuthTab('register')" class="py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-alu-dark transition-all">
+          Crear cuenta
+        </button>
+      </div>
+
+      <form id="form-login" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Correo electrónico o usuario</label>
+          <input id="login-identifier" type="text" required placeholder="tu@email.com" class="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Contraseña</label>
+          <input id="login-password" type="password" required placeholder="••••••••" class="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+        </div>
+        <button type="submit" class="w-full py-3.5 rounded-2xl bg-alu-dark text-white font-semibold text-sm hover:bg-alu-slate transition-colors">
+          Entrar en mi cuenta
+        </button>
+        <div class="text-center pt-1">
+          <button type="button" onclick="closeAuthModal()" class="text-xs text-gray-500 hover:text-alu-dark underline">
+            Continuar explorando como invitado
+          </button>
+        </div>
+      </form>
+
+      <form id="form-register" onsubmit="handleRegisterSubmit(event)" class="hidden space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Nombre completo *</label>
+          <input id="reg-name" type="text" required placeholder="Tu nombre y apellidos" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Correo electrónico *</label>
+          <input id="reg-email" type="email" required placeholder="tu@email.com" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Teléfono</label>
+          <input id="reg-phone" type="tel" placeholder="+34 600 000 000" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Contraseña *</label>
+          <input id="reg-password" type="password" required minlength="6" placeholder="Mínimo 6 caracteres" class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-alu-dark" />
+        </div>
+        <button type="submit" class="w-full py-3.5 rounded-2xl bg-alu-dark text-white font-semibold text-sm hover:bg-alu-slate transition-colors">
+          Registrarme y entrar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL CONFIRMACIÓN DE PEDIDO (CLIENTE) ==================== -->
+  <div id="order-confirm-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div onclick="closeOrderConfirmModal()" class="absolute inset-0 bg-black/60 backdrop-blur-xs"></div>
+    <div class="relative bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-gray-200 z-10 text-center space-y-5">
+      <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+        <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+      </div>
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">¡Pedido registrado con éxito!</span>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-alu-dark mt-1">Gracias por confiar en AluArt</h2>
+        <p class="text-sm text-gray-600 mt-2">
+          Hemos enviado la confirmación a <strong id="confirm-modal-email" class="text-alu-dark"></strong> y nuestro taller ya ha recibido tus fotografías y encuadres.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-alu-light border border-gray-200">
+        <span class="text-xs text-gray-500 block">Número de seguimiento único</span>
+        <span id="confirm-modal-order-id" class="font-display text-2xl font-bold text-alu-dark tracking-wide">ALU-2026-0004</span>
+      </div>
+
+      <div id="confirm-guest-prompt" class="hidden p-4 rounded-2xl bg-blue-50 border border-blue-200 text-left text-xs text-blue-900">
+        <strong>¿Quieres seguir este pedido online?</strong> Crea una cuenta gratuita con el mismo email (<span id="confirm-guest-email" class="font-semibold"></span>) para ver la barra de progreso en tiempo real.
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <button id="confirm-go-orders-btn" onclick="goToOrdersAfterCheckout()" class="flex-1 py-3.5 rounded-2xl bg-alu-dark text-white font-semibold text-sm hover:bg-alu-slate transition-colors">
+          Ver estado de mi pedido
+        </button>
+        <button onclick="closeOrderConfirmModal()" class="flex-1 py-3.5 rounded-2xl bg-gray-100 text-alu-dark font-semibold text-sm hover:bg-gray-200 transition-colors">
+          Seguir en la tienda
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DETALLE Y GESTIÓN DE PEDIDO (EXCLUSIVO ADMIN) ==================== -->
+  <div id="admin-order-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-6">
+    <div onclick="closeAdminOrderModal()" class="absolute inset-0 bg-black/65 backdrop-blur-xs"></div>
+    <div class="relative bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-gray-200 z-10">
+      <div class="sticky top-0 z-20 bg-alu-dark text-white px-6 py-4 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] uppercase tracking-wider text-gray-400">Ficha de Producción y Gestión</span>
+          <h2 id="adm-modal-title" class="font-display text-xl font-bold">Pedido ALU-2026-0001</h2>
+        </div>
+        <button onclick="closeAdminOrderModal()" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div id="admin-modal-body" class="p-6 space-y-6"></div>
+    </div>
+  </div>
+
+  <!-- ==================== LÓGICA JAVASCRIPT COMPLETA ==================== -->
+  <script>
+    /**
+     * ARQUITECTURA PREPARADA PARA FUTURAS INTEGRACIONES (API HOOKS)
+     */
+    const ALUART_INTEGRATIONS = {
+      paymentGateway: { enabled: false, provider: 'stripe_or_redsys_ready' },
+      invoicingSystem: { enabled: false, taxRate: 0.21, currency: 'EUR' },
+      shippingCourier: { enabled: false, defaultCarrier: 'Envío Estándar 48/72h' },
+      whatsappBusiness: {
+        phone: '34600123456',
+        provisional: true,
+        sendTemplateNotification: (phone, orderId, newStatus) => {
+          console.info(`[WhatsApp Business Bridge] Preparado para enviar a ${phone}: Pedido ${orderId} -> ${newStatus}`);
+        }
+      }
+    };
+
+    // Catálogo oficial con precios finales IVA incluido y dimensiones base (ancho x alto)
+    const CATALOG_DATA = {
+      '20x15': {
+        id: '20x15',
+        shortCm: 15,
+        longCm: 20,
+        label: '20 × 15 cm',
+        subtitle: 'Formato compacto ideal para escritorio, estantería o regalo personal.',
+        packs: [
+          { qty: 1, label: '1 unidad', price: 11.90 },
+          { qty: 3, label: 'Pack 3', price: 33.90 },
+          { qty: 5, label: 'Pack 5', price: 54.90 },
+          { qty: 10, label: 'Pack 10', price: 99.90 },
+          { qty: 20, label: 'Pack 20', price: 189.90 },
+          { qty: 50, label: 'Pack 50', price: 449.90 }
+        ]
+      },
+      '20x30': {
+        id: '20x30',
+        shortCm: 20,
+        longCm: 30,
+        label: '20 × 30 cm',
+        subtitle: 'Nuestro formato más vendido para retratos, parejas y decoración mural.',
+        popular: true,
+        packs: [
+          { qty: 1, label: '1 unidad', price: 17.90 },
+          { qty: 3, label: 'Pack 3', price: 50.90 },
+          { qty: 5, label: 'Pack 5', price: 79.90 },
+          { qty: 10, label: 'Pack 10', price: 149.90 },
+          { qty: 20, label: 'Pack 20', price: 279.90 },
+          { qty: 50, label: 'Pack 50', price: 649.90 }
+        ]
+      },
+      '30x40': {
+        id: '30x40',
+        shortCm: 30,
+        longCm: 40,
+        label: '30 × 40 cm',
+        subtitle: 'Gran formato de galería para protagonizar salones, estudios y placas.',
+        packs: [
+          { qty: 1, label: '1 unidad', price: 28.90 },
+          { qty: 3, label: 'Pack 3', price: 82.90 },
+          { qty: 5, label: 'Pack 5', price: 134.90 },
+          { qty: 10, label: 'Pack 10', price: 249.90 },
+          { qty: 20, label: 'Pack 20', price: 469.90 },
+          { qty: 50, label: 'Pack 50', price: 1099.90 }
+        ]
+      }
+    };
+
+    const ORDER_STATUSES = [
+      'Pedido recibido',
+      'Pago confirmado',
+      'En preparación',
+      'En producción',
+      'Preparado',
+      'Enviado',
+      'Entregado',
+      'Cancelado'
+    ];
+
+    const PROGRESS_STEPS = [
+      'Pedido recibido',
+      'Pago confirmado',
+      'En preparación',
+      'En producción',
+      'Preparado',
+      'Enviado',
+      'Entregado'
+    ];
+
+    function createEmptyPlateSlot(index) {
+      return {
+        index,
+        photoDataUrl: '',
+        photoName: '',
+        naturalWidth: 0,
+        naturalHeight: 0,
+        fitMode: 'cover', // 'cover' | 'contain'
+        zoom: 100,        // 100 - 220
+        offsetX: 0,       // -50 to 50 (% de desplazamiento)
+        offsetY: 0        // -50 to 50 (% de desplazamiento)
+      };
+    }
+
+    // Estado global sincronizado con localStorage
+    let state = {
+      currentUser: null,
+      users: [],
+      orders: [],
+      cart: [],
+      configurator: {
+        size: '20x15',
+        orientation: 'horizontal', // 'horizontal' | 'vertical'
+        packIndex: 0,
+        packPhotoMode: 'different', // 'different' | 'same'
+        activePlateIndex: 0,
+        plates: [createEmptyPlateSlot(0)]
+      }
+    };
+
+    // Estado de arrastre directo sobre la placa de previsualización
+    let dragPanState = {
+      isDragging: false,
+      startX: 0,
+      startY: 0,
+      initialOffsetX: 0,
+      initialOffsetY: 0
+    };
+
+    // ==================== SEGURIDAD: HASH SHA-256 ====================
+    async function hashPassword(plainText) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode('ALUART_SALT_2026_' + plainText);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function createDemoArtworkDataUrl(title, subtitle, c1, c2) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 800;
+      canvas.height = 600;
+      const ctx = canvas.getContext('2d');
+      const grad = ctx.createLinearGradient(0, 0, 800, 600);
+      grad.addColorStop(0, c1);
+      grad.addColorStop(1, c2);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 800, 600);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.14)';
+      ctx.beginPath();
+      ctx.arc(620, 160, 120, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 44px sans-serif';
+      ctx.fillText(title, 60, 470);
+      ctx.font = '24px sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.fillText(subtitle, 60, 515);
+      return canvas.toDataURL('image/jpeg', 0.9);
+    }
+
+    // ==================== INICIALIZACIÓN DE DATOS ====================
+    async function initApp() {
+      const savedUsers = localStorage.getItem('aluart_users_v1');
+      const savedOrders = localStorage.getItem('aluart_orders_v1');
+      const savedSession = localStorage.getItem('aluart_session_v1');
+      const savedCart = localStorage.getItem('aluart_cart_v1');
+
+      if (savedUsers) {
+        state.users = JSON.parse(savedUsers);
+      } else {
+        const adminHash = await hashPassword('AdminAlu2026!');
+        const demoClientHash = await hashPassword('Cliente2026!');
+        state.users = [
+          {
+            id: 'USR-ADMIN-01',
+            username: 'admin',
+            name: 'Administrador AluArt',
+            email: 'admin@aluart.es',
+            phone: '+34 600 123 456',
+            address: 'Taller Central AluArt, Madrid',
+            passwordHash: adminHash,
+            role: 'admin'
+          },
+          {
+            id: 'USR-CLI-01',
+            name: 'Carlos Mendoza',
+            email: 'carlos@ejemplo.es',
+            phone: '+34 611 222 333',
+            address: 'Calle Velázquez 45, 3ºB, 28001 Madrid',
+            passwordHash: demoClientHash,
+            role: 'customer'
+          }
+        ];
+        saveUsers();
+      }
+
+      if (savedOrders) {
+        state.orders = JSON.parse(savedOrders);
+      } else {
+        const img1 = createDemoArtworkDataUrl('ANIVERSARIO 2026', 'Sesión Costa Brava · 20x30 cm', '#1e293b', '#0f766e');
+        const img2 = createDemoArtworkDataUrl('ESTUDIO ARQUITECTURA', 'Placa Entrada Aluminio · 40x30 cm', '#18181b', '#52525b');
+        const img3 = createDemoArtworkDataUrl('FAMILIA MARTÍNEZ', 'Recuerdo Verano · Pack 3 (20x15 cm)', '#7c2d12', '#1e1b4b');
+
+        state.orders = [
+          {
+            id: 'ALU-2026-0001',
+            date: '2026-11-22T10:35:00',
+            customerName: 'Carlos Mendoza',
+            customerEmail: 'carlos@ejemplo.es',
+            customerPhone: '+34 611 222 333',
+            shippingAddress: 'Calle Velázquez 45, 3ºB, 28001 Madrid',
+            status: 'En producción',
+            total: 17.90,
+            isNewForAdmin: false,
+            internalNotes: 'Cliente habitual. Revisar perfil de color cálido antes de sublimar.',
+            items: [
+              {
+                sizeId: '20x30',
+                orientation: 'vertical',
+                sizeLabel: '20 × 30 cm',
+                packLabel: '1 unidad',
+                qty: 1,
+                price: 17.90,
+                comments: 'Centrar bien la pareja y mantener tonos naturales.',
+                photoDataUrl: img1,
+                photoName: 'aniversario_costa_brava.jpg',
+                plates: [
+                  {
+                    plateNumber: 1,
+                    photoDataUrl: img1,
+                    photoName: 'aniversario_costa_brava.jpg',
+                    fitMode: 'cover',
+                    zoom: 105,
+                    offsetX: 0,
+                    offsetY: -4
+                  }
+                ]
+              }
+            ],
+            history: [
+              { date: '2026-11-22 10:35', action: 'Pedido creado por el cliente (ALU-2026-0001)', by: 'Sistema' },
+              { date: '2026-11-22 11:10', action: 'Estado cambiado a: Pago confirmado', by: 'Admin' },
+              { date: '2026-11-23 09:20', action: 'Estado cambiado a: En preparación', by: 'Admin' },
+              { date: '2026-11-24 08:45', action: 'Estado cambiado a: En producción', by: 'Admin' }
+            ]
+          },
+          {
+            id: 'ALU-2026-0002',
+            date: '2026-11-24T17:15:00',
+            customerName: 'Estudio Nexo Diseño S.L.',
+            customerEmail: 'compras@estudionexo.es',
+            customerPhone: '+34 622 987 654',
+            shippingAddress: 'Avda. Diagonal 412, Local 2, 08037 Barcelona',
+            status: 'Pedido recibido',
+            total: 82.90,
+            isNewForAdmin: true,
+            internalNotes: '',
+            items: [
+              {
+                sizeId: '30x40',
+                orientation: 'horizontal',
+                sizeLabel: '40 × 30 cm',
+                packLabel: 'Pack 3',
+                qty: 3,
+                price: 82.90,
+                comments: 'Placas corporativas para sala de reuniones. Acabado nítido.',
+                photoDataUrl: img2,
+                photoName: 'placa_corporativa_nexo.jpg',
+                plates: [
+                  { plateNumber: 1, photoDataUrl: img2, photoName: 'placa_sala_1.jpg', fitMode: 'cover', zoom: 100, offsetX: 0, offsetY: 0 },
+                  { plateNumber: 2, photoDataUrl: img2, photoName: 'placa_sala_2.jpg', fitMode: 'cover', zoom: 110, offsetX: 2, offsetY: 0 },
+                  { plateNumber: 3, photoDataUrl: img2, photoName: 'placa_sala_3.jpg', fitMode: 'contain', zoom: 100, offsetX: 0, offsetY: 0 }
+                ]
+              }
+            ],
+            history: [
+              { date: '2026-11-24 17:15', action: 'Pedido recibido desde la web (ALU-2026-0002)', by: 'Sistema' }
+            ]
+          },
+          {
+            id: 'ALU-2026-0003',
+            date: '2026-11-18T14:20:00',
+            customerName: 'Elena Martínez',
+            customerEmail: 'elena.mtz@ejemplo.es',
+            customerPhone: '+34 655 443 322',
+            shippingAddress: 'Calle Sierpes 18, 2ºA, 41004 Sevilla',
+            status: 'Entregado',
+            total: 33.90,
+            isNewForAdmin: false,
+            internalNotes: 'Entregado sin incidencias por mensajería urgente.',
+            items: [
+              {
+                sizeId: '20x15',
+                orientation: 'horizontal',
+                sizeLabel: '20 × 15 cm',
+                packLabel: 'Pack 3',
+                qty: 3,
+                price: 33.90,
+                comments: 'Regalo para abuelos, por favor revisar brillo.',
+                photoDataUrl: img3,
+                photoName: 'familia_martinez_hd.jpg',
+                plates: [
+                  { plateNumber: 1, photoDataUrl: img3, photoName: 'familia_martinez_hd.jpg', fitMode: 'cover', zoom: 100, offsetX: 0, offsetY: 0 },
+                  { plateNumber: 2, photoDataUrl: img3, photoName: 'familia_martinez_hd.jpg', fitMode: 'cover', zoom: 100, offsetX: 0, offsetY: 0 },
+                  { plateNumber: 3, photoDataUrl: img3, photoName: 'familia_martinez_hd.jpg', fitMode: 'cover', zoom: 100, offsetX: 0, offsetY: 0 }
+                ]
+              }
+            ],
+            history: [
+              { date: '2026-11-18 14:20', action: 'Pedido creado por el cliente', by: 'Sistema' },
+              { date: '2026-11-20 12:00', action: 'Estado cambiado a: Enviado', by: 'Admin' },
+              { date: '2026-11-21 16:40', action: 'Estado cambiado a: Entregado', by: 'Admin' }
+            ]
+          }
+        ];
+        saveOrders();
+      }
+
+      if (savedCart) state.cart = JSON.parse(savedCart);
+      if (savedSession) state.currentUser = JSON.parse(savedSession);
+
+      // Vincular eventos globales de arrastre para el encuadre
+      window.addEventListener('mousemove', onDragPanMove);
+      window.addEventListener('mouseup', stopDragPan);
+      window.addEventListener('touchmove', onDragPanMove, { passive: false });
+      window.addEventListener('touchend', stopDragPan);
+      window.addEventListener('resize', renderPreviewCanvas);
+
+      renderCatalogCards();
+      syncConfiguratorUI();
+      updateCartUI();
+      updateAuthHeaderUI();
+
+      if (state.currentUser && state.currentUser.role === 'admin') {
+        navigateTo('admin');
+      } else {
+        navigateTo('store');
+      }
+    }
+
+    function saveUsers() { localStorage.setItem('aluart_users_v1', JSON.stringify(state.users)); }
+    function saveOrders() { localStorage.setItem('aluart_orders_v1', JSON.stringify(state.orders)); }
+    function saveCart() { localStorage.setItem('aluart_cart_v1', JSON.stringify(state.cart)); }
+    function saveSession() {
+      if (state.currentUser) localStorage.setItem('aluart_session_v1', JSON.stringify(state.currentUser));
+      else localStorage.removeItem('aluart_session_v1');
+    }
+
+    function formatEuro(amount) {
+      return amount.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    }
+
+    // Helper para obtener las dimensiones exactas (anchoCm x altoCm) según tamaño y orientación
+    function getOrientedDimensions(sizeId, orientation) {
+      const item = CATALOG_DATA[sizeId];
+      if (orientation === 'horizontal') {
+        return {
+          widthCm: item.longCm,
+          heightCm: item.shortCm,
+          label: `${item.longCm} × ${item.shortCm} cm`,
+          orientationLabel: 'Horizontal'
+        };
+      } else {
+        return {
+          widthCm: item.shortCm,
+          heightCm: item.longCm,
+          label: `${item.shortCm} × ${item.longCm} cm`,
+          orientationLabel: 'Vertical'
+        };
+      }
+    }
+
+    // ==================== NAVEGACIÓN ENTRE VISTAS ====================
+    function navigateTo(view) {
+      const vStore = document.getElementById('view-store');
+      const vCustomer = document.getElementById('view-customer');
+      const vAdmin = document.getElementById('view-admin');
+      const cartBtn = document.getElementById('cart-header-btn');
+
+      vStore.classList.add('hidden');
+      vCustomer.classList.add('hidden');
+      vAdmin.classList.add('hidden');
+
+      if (view === 'admin') {
+        if (!state.currentUser || state.currentUser.role !== 'admin') {
+          navigateTo('store');
+          return;
+        }
+        vAdmin.classList.remove('hidden');
+        cartBtn.classList.add('hidden');
+        renderAdminDashboard();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (view === 'customer') {
+        if (!state.currentUser || state.currentUser.role !== 'customer') {
+          openAuthModal('login');
+          return;
+        }
+        vCustomer.classList.remove('hidden');
+        cartBtn.classList.remove('hidden');
+        renderCustomerDashboard();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        vStore.classList.remove('hidden');
+        if (state.currentUser && state.currentUser.role === 'admin') {
+          cartBtn.classList.add('hidden');
+        } else {
+          cartBtn.classList.remove('hidden');
+        }
+        setTimeout(renderPreviewCanvas, 30);
+      }
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    // ==================== CATÁLOGO ====================
+    function renderCatalogCards() {
+      const grid = document.getElementById('catalog-grid');
+      grid.innerHTML = Object.values(CATALOG_DATA).map(item => `
+        <div class="rounded-3xl border ${item.popular ? 'border-alu-dark ring-2 ring-alu-dark/10 shadow-xl' : 'border-gray-200 shadow-sm'} bg-white p-6 sm:p-7 flex flex-col justify-between relative">
+          ${item.popular ? '<span class="absolute -top-3.5 right-6 px-3.5 py-1 rounded-full bg-alu-dark text-white text-xs font-bold tracking-wide">Más elegido</span>' : ''}
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <h3 class="font-display text-2xl font-bold text-alu-dark">${item.label}</h3>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-gray-100 text-gray-700">IVA incluido</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-6">${item.subtitle}</p>
+
+            <div class="divide-y divide-gray-100 border-y border-gray-100 mb-6">
+              ${item.packs.map((pack, idx) => {
+                const unit = pack.price / pack.qty;
+                return `
+                  <div class="py-2.5 flex items-center justify-between gap-2 text-sm">
+                    <div>
+                      <span class="font-semibold text-alu-dark">${pack.label}</span>
+                      ${pack.qty > 1 ? `<span class="text-xs text-gray-400 ml-1.5">(${formatEuro(unit)}/ud)</span>` : ''}
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <span class="font-display font-bold text-alu-dark">${formatEuro(pack.price)}</span>
+                      <button type="button" onclick="quickSelectFromCatalog('${item.id}', ${idx})" class="px-2.5 py-1 rounded-lg bg-gray-100 hover:bg-alu-dark hover:text-white text-xs font-semibold text-alu-dark transition-colors">
+                        Elegir
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <button type="button" onclick="quickSelectFromCatalog('${item.id}', 0)" class="w-full py-3.5 rounded-2xl ${item.popular ? 'bg-alu-dark text-white hover:bg-alu-slate' : 'bg-alu-light text-alu-dark hover:bg-gray-200'} font-semibold text-sm transition-colors">
+            Personalizar ${item.label}
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function quickSelectFromCatalog(sizeId, packIndex) {
+      state.configurator.size = sizeId;
+      selectConfigPack(packIndex);
+      syncConfiguratorUI();
+      document.getElementById('personalizar').scrollIntoView({ behavior: 'smooth' });
+      const dims = getOrientedDimensions(sizeId, state.configurator.orientation);
+      showToast(`Seleccionado: ${dims.label} (${dims.orientationLabel}) · ${CATALOG_DATA[sizeId].packs[packIndex].label}`, 'info');
+    }
+
+    // ==================== CONFIGURADOR DE PRECISIÓN (TAMAÑO, ORIENTACIÓN, PACK MULTI-FOTO Y ENCUADRE) ====================
+    function selectConfigSize(sizeId) {
+      state.configurator.size = sizeId;
+      syncConfiguratorUI();
+    }
+
+    function selectConfigOrientation(orientation) {
+      state.configurator.orientation = orientation;
+      syncConfiguratorUI();
+      const dims = getOrientedDimensions(state.configurator.size, orientation);
+      showToast(`Orientación ${dims.orientationLabel} (${dims.label}) aplicada`, 'info');
+    }
+
+    function selectConfigPack(idx) {
+      state.configurator.packIndex = idx;
+      const sizeObj = CATALOG_DATA[state.configurator.size];
+      const targetQty = sizeObj.packs[idx].qty;
+
+      // Ajustar array de placas manteniendo las fotos ya subidas
+      const currentPlates = state.configurator.plates;
+      const nextPlates = [];
+      for (let i = 0; i < targetQty; i++) {
+        if (currentPlates[i]) {
+          nextPlates.push({ ...currentPlates[i], index: i });
+        } else if (state.configurator.packPhotoMode === 'same' && currentPlates[0] && currentPlates[0].photoDataUrl) {
+          nextPlates.push({ ...currentPlates[0], index: i });
+        } else {
+          nextPlates.push(createEmptyPlateSlot(i));
+        }
+      }
+      state.configurator.plates = nextPlates;
+      if (state.configurator.activePlateIndex >= targetQty) {
+        state.configurator.activePlateIndex = 0;
+      }
+
+      syncConfiguratorUI();
+    }
+
+    function setPackPhotoMode(mode) {
+      state.configurator.packPhotoMode = mode;
+      const plates = state.configurator.plates;
+
+      if (mode === 'same') {
+        // Buscar la primera placa con foto para replicarla
+        const source = plates.find(p => p.photoDataUrl) || plates[0];
+        if (source && source.photoDataUrl) {
+          state.configurator.plates = plates.map((p, idx) => ({
+            ...source,
+            index: idx
+          }));
+        }
+        state.configurator.activePlateIndex = 0;
+      }
+      syncConfiguratorUI();
+    }
+
+    function selectActivePlate(idx) {
+      state.configurator.activePlateIndex = idx;
+      syncConfiguratorUI();
+    }
+
+    function replicateActivePhotoToAll() {
+      const activePlate = state.configurator.plates[state.configurator.activePlateIndex];
+      if (!activePlate || !activePlate.photoDataUrl) return;
+      state.configurator.plates = state.configurator.plates.map((p, idx) => ({
+        ...activePlate,
+        index: idx
+      }));
+      syncConfiguratorUI();
+      showToast(`Fotografía y encuadre copiados a las ${state.configurator.plates.length} placas del pack`, 'success');
+    }
+
+    function syncConfiguratorUI() {
+      const { size, orientation, packIndex, packPhotoMode, activePlateIndex, plates } = state.configurator;
+      const sizeObj = CATALOG_DATA[size];
+      const pack = sizeObj.packs[packIndex];
+      const dims = getOrientedDimensions(size, orientation);
+
+      // 1. Actualizar botones de tamaño con las medidas orientadas
+      document.querySelectorAll('.config-size-btn').forEach(btn => {
+        const sId = btn.dataset.size;
+        const isSelected = sId === size;
+        const sDims = getOrientedDimensions(sId, orientation);
+        const labelSpan = btn.querySelector('[data-size-label]');
+        if (labelSpan) labelSpan.textContent = sDims.label;
+
+        btn.className = isSelected
+          ? 'config-size-btn p-3.5 rounded-2xl border-2 border-alu-dark bg-gray-900 text-white text-center transition-all'
+          : 'config-size-btn p-3.5 rounded-2xl border-2 border-gray-200 bg-white text-alu-dark hover:border-gray-400 text-center transition-all';
+      });
+
+      // 2. Actualizar botones de orientación
+      const btnH = document.getElementById('orient-horizontal-btn');
+      const btnV = document.getElementById('orient-vertical-btn');
+      if (orientation === 'horizontal') {
+        btnH.className = 'py-2.5 px-4 rounded-xl border-2 border-alu-dark bg-alu-dark text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2.5 transition-all';
+        btnV.className = 'py-2.5 px-4 rounded-xl border-2 border-gray-200 bg-white text-alu-dark hover:border-gray-400 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2.5 transition-all';
+      } else {
+        btnV.className = 'py-2.5 px-4 rounded-xl border-2 border-alu-dark bg-alu-dark text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2.5 transition-all';
+        btnH.className = 'py-2.5 px-4 rounded-xl border-2 border-gray-200 bg-white text-alu-dark hover:border-gray-400 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2.5 transition-all';
+      }
+
+      // 3. Renderizar opciones de Pack
+      const packContainer = document.getElementById('config-pack-options');
+      packContainer.innerHTML = sizeObj.packs.map((p, idx) => {
+        const active = idx === packIndex;
+        return `
+          <button type="button" onclick="selectConfigPack(${idx})" class="p-3 rounded-2xl border-2 text-left transition-all ${active ? 'border-alu-dark bg-alu-dark text-white' : 'border-gray-200 bg-white text-alu-dark hover:border-gray-400'}">
+            <span class="block text-xs font-bold">${p.label}</span>
+            <span class="block font-display font-bold text-base mt-0.5">${formatEuro(p.price)}</span>
+            <span class="block text-[10px] ${active ? 'text-gray-300' : 'text-gray-400'}">IVA incluido</span>
+          </button>
+        `;
+      }).join('');
+
+      // 4. Actualizar precios
+      const unit = pack.price / pack.qty;
+      document.getElementById('config-total-price').textContent = formatEuro(pack.price);
+      document.getElementById('config-unit-price').textContent = `(${formatEuro(unit)} / ud. · IVA incl.)`;
+
+      // 5. Actualizar gestor multi-placa según cantidad
+      const isMulti = pack.qty > 1;
+      const modeBox = document.getElementById('pack-photo-mode-box');
+      const platesWrapper = document.getElementById('pack-plates-selector-wrapper');
+      const batchBar = document.getElementById('batch-upload-bar');
+      const plateIndicator = document.getElementById('preview-plate-indicator');
+      const copyAllBtn = document.getElementById('btn-copy-to-all');
+
+      const filledCount = packPhotoMode === 'same'
+        ? (plates[0]?.photoDataUrl ? pack.qty : 0)
+        : plates.filter(p => p.photoDataUrl).length;
+
+      document.getElementById('step3-progress-pill').textContent = `${filledCount} / ${pack.qty} ${pack.qty === 1 ? 'lista' : 'listas'}`;
+      document.getElementById('step3-progress-pill').className = filledCount === pack.qty
+        ? 'px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold'
+        : 'px-2.5 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-bold';
+
+      if (isMulti) {
+        modeBox.classList.remove('hidden');
+        document.getElementById('pack-qty-badge').textContent = `${pack.qty} placas (${dims.label})`;
+        document.getElementById('step3-heading-text').textContent = `Fotografías para tu ${pack.label} (${pack.qty} placas)`;
+
+        const btnDiff = document.getElementById('pack-mode-diff-btn');
+        const btnSame = document.getElementById('pack-mode-same-btn');
+
+        if (packPhotoMode === 'different') {
+          btnDiff.className = 'py-2.5 px-3 rounded-xl border-2 border-alu-dark bg-alu-dark text-white text-xs font-semibold text-left flex items-center gap-2 transition-all';
+          btnSame.className = 'py-2.5 px-3 rounded-xl border-2 border-gray-200 bg-white text-alu-dark hover:border-gray-400 text-xs font-semibold text-left flex items-center gap-2 transition-all';
+          batchBar.classList.remove('hidden');
+          platesWrapper.classList.remove('hidden');
+          plateIndicator.classList.remove('hidden');
+          plateIndicator.textContent = `Placa ${activePlateIndex + 1} de ${pack.qty}`;
+
+          // Renderizar cuadrícula de placas
+          const grid = document.getElementById('pack-plates-grid');
+          grid.innerHTML = plates.map((pl, idx) => {
+            const isAct = idx === activePlateIndex;
+            const hasImg = Boolean(pl.photoDataUrl);
+            return `
+              <button type="button" onclick="selectActivePlate(${idx})" class="relative rounded-xl border-2 p-1.5 text-center transition-all ${isAct ? 'border-alu-dark bg-gray-900 text-white shadow-xs' : (hasImg ? 'border-emerald-300 bg-emerald-50/40 text-alu-dark' : 'border-gray-200 bg-white text-gray-500 hover:border-gray-400')}">
+                <div class="w-full aspect-square rounded-lg overflow-hidden bg-gray-100 mb-1 flex items-center justify-center">
+                  ${hasImg
+                    ? `<img src="${pl.photoDataUrl}" alt="Placa ${idx + 1}" class="w-full h-full object-cover" />`
+                    : `<span class="text-[10px] font-bold text-gray-400">+ Foto</span>`
+                  }
+                </div>
+                <span class="block text-[10px] font-bold leading-none">Placa ${idx + 1}</span>
+              </button>
+            `;
+          }).join('');
+
+          if (plates[activePlateIndex]?.photoDataUrl) {
+            copyAllBtn.classList.remove('hidden');
+          } else {
+            copyAllBtn.classList.add('hidden');
+          }
+        } else {
+          btnSame.className = 'py-2.5 px-3 rounded-xl border-2 border-alu-dark bg-alu-dark text-white text-xs font-semibold text-left flex items-center gap-2 transition-all';
+          btnDiff.className = 'py-2.5 px-3 rounded-xl border-2 border-gray-200 bg-white text-alu-dark hover:border-gray-400 text-xs font-semibold text-left flex items-center gap-2 transition-all';
+          batchBar.classList.add('hidden');
+          platesWrapper.classList.add('hidden');
+          plateIndicator.classList.remove('hidden');
+          plateIndicator.textContent = `Todas las placas (${pack.qty} uds.)`;
+        }
+      } else {
+        modeBox.classList.add('hidden');
+        platesWrapper.classList.add('hidden');
+        plateIndicator.classList.add('hidden');
+        document.getElementById('step3-heading-text').textContent = 'Sube tu fotografía o diseño';
+      }
+
+      // 6. Actualizar etiqueta del botón de subida de archivo
+      const currentSlot = plates[activePlateIndex] || plates[0];
+      const prefix = isMulti && packPhotoMode === 'different' ? `Placa ${activePlateIndex + 1}: ` : '';
+      if (currentSlot && currentSlot.photoDataUrl) {
+        document.getElementById('upload-file-label').textContent = `${prefix}${currentSlot.photoName} (Clic para cambiar)`;
+        document.getElementById('upload-file-sublabel').textContent = `Resolución original: ${currentSlot.naturalWidth} × ${currentSlot.naturalHeight} px`;
+      } else {
+        document.getElementById('upload-file-label').textContent = `${prefix}Haz clic para seleccionar tu foto (JPG, PNG, WEBP)`;
+        document.getElementById('upload-file-sublabel').textContent = 'Se conservará en alta calidad para producción';
+      }
+
+      // 7. Renderizar la vista previa matemática exacta
+      renderPreviewCanvas();
+    }
+
+    /**
+     * MOTOR DE PREVISUALIZACIÓN DE PRECISIÓN
+     * Calcula el tamaño real de la placa dentro del escenario sin deformar,
+     * aplica proporción matemática exacta (20x15, 15x20, 30x20, 20x30, 40x30, 30x40),
+     * y posiciona la imagen según fitMode ('cover' o 'contain'), zoom y offsetX/offsetY.
+     */
+    function renderPreviewCanvas() {
+      const { size, orientation, activePlateIndex, plates } = state.configurator;
+      const dims = getOrientedDimensions(size, orientation);
+      const slot = plates[activePlateIndex] || plates[0];
+
+      document.getElementById('preview-dimension-badge').textContent = dims.label;
+      document.getElementById('preview-orientation-badge').textContent = dims.orientationLabel;
+      document.getElementById('preview-ratio-label').textContent = dims.label;
+
+      const stage = document.getElementById('preview-stage-wrapper');
+      const frame = document.getElementById('preview-plate-frame');
+
+      // Calcular dimensiones óptimas dentro del contenedor disponible
+      const stageWidth = stage ? stage.clientWidth : 420;
+      const maxBoxW = Math.min(Math.max(stageWidth - 56, 220), 380);
+      const maxBoxH = 310;
+
+      const ratio = dims.widthCm / dims.heightCm;
+      let plateW = maxBoxW;
+      let plateH = plateW / ratio;
+
+      if (plateH > maxBoxH) {
+        plateH = maxBoxH;
+        plateW = plateH * ratio;
+      }
+
+      plateW = Math.round(plateW);
+      plateH = Math.round(plateH);
+
+      frame.style.width = `${plateW}px`;
+      frame.style.height = `${plateH}px`;
+
+      const placeholderEl = document.getElementById('preview-placeholder');
+      const viewportEl = document.getElementById('preview-image-viewport');
+      const imgEl = document.getElementById('preview-uploaded-img');
+      const controlsPanel = document.getElementById('framing-controls-panel');
+      const dragHint = document.getElementById('preview-drag-hint');
+
+      if (!slot || !slot.photoDataUrl) {
+        placeholderEl.classList.remove('hidden');
+        viewportEl.classList.add('hidden');
+        controlsPanel.classList.add('hidden');
+        dragHint.classList.add('hidden');
+        return;
+      }
+
+      placeholderEl.classList.add('hidden');
+      viewportEl.classList.remove('hidden');
+      controlsPanel.classList.remove('hidden');
+      dragHint.classList.remove('hidden');
+
+      if (imgEl.src !== slot.photoDataUrl) {
+        imgEl.src = slot.photoDataUrl;
+      }
+
+      // Calcular tamaño base de la imagen dentro de la placa según fitMode ('cover' o 'contain')
+      const natW = slot.naturalWidth || imgEl.naturalWidth || 800;
+      const natH = slot.naturalHeight || imgEl.naturalHeight || 600;
+      const imgRatio = natW / natH;
+      const plateRatio = plateW / plateH;
+
+      let baseW, baseH;
+      if (slot.fitMode === 'cover') {
+        if (imgRatio > plateRatio) {
+          baseH = plateH;
+          baseW = plateH * imgRatio;
+        } else {
+          baseW = plateW;
+          baseH = plateW / imgRatio;
+        }
+      } else {
+        // 'contain': imagen completa dentro de la placa sin recortar nada
+        if (imgRatio > plateRatio) {
+          baseW = plateW;
+          baseH = plateW / imgRatio;
+        } else {
+          baseH = plateH;
+          baseW = plateH * imgRatio;
+        }
+      }
+
+      const scale = slot.zoom / 100;
+      const finalW = baseW * scale;
+      const finalH = baseH * scale;
+
+      // Desplazamiento en píxeles proporcional al tamaño de la placa
+      const tx = (slot.offsetX / 100) * plateW;
+      const ty = (slot.offsetY / 100) * plateH;
+
+      imgEl.style.width = `${finalW}px`;
+      imgEl.style.height = `${finalH}px`;
+      imgEl.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px))`;
+
+      // Sincronizar sliders y botones del panel de encuadre
+      const btnCover = document.getElementById('fit-cover-btn');
+      const btnContain = document.getElementById('fit-contain-btn');
+      if (slot.fitMode === 'cover') {
+        btnCover.className = 'py-2 px-3 rounded-xl text-xs font-semibold bg-alu-dark text-white transition-all flex items-center justify-center gap-1.5';
+        btnContain.className = 'py-2 px-3 rounded-xl text-xs font-semibold bg-white border border-gray-300 text-alu-dark hover:bg-gray-50 transition-all flex items-center justify-center gap-1.5';
+      } else {
+        btnContain.className = 'py-2 px-3 rounded-xl text-xs font-semibold bg-alu-dark text-white transition-all flex items-center justify-center gap-1.5';
+        btnCover.className = 'py-2 px-3 rounded-xl text-xs font-semibold bg-white border border-gray-300 text-alu-dark hover:bg-gray-50 transition-all flex items-center justify-center gap-1.5';
+      }
+
+      document.getElementById('framing-zoom-slider').value = slot.zoom;
+      document.getElementById('framing-zoom-value').textContent = `${slot.zoom}%`;
+
+      document.getElementById('framing-x-slider').value = slot.offsetX;
+      document.getElementById('framing-x-value').textContent = `${slot.offsetX > 0 ? '+' : ''}${slot.offsetX}%`;
+
+      document.getElementById('framing-y-slider').value = slot.offsetY;
+      document.getElementById('framing-y-value').textContent = `${slot.offsetY > 0 ? '+' : ''}${slot.offsetY}%`;
+    }
+
+    // ==================== CONTROLES INTERACTIVOS DE ZOOM, ARRASTRE Y AJUSTE ====================
+    function setActivePlateFitMode(mode) {
+      const slot = state.configurator.plates[state.configurator.activePlateIndex];
+      if (!slot) return;
+      slot.fitMode = mode;
+      slot.offsetX = 0;
+      slot.offsetY = 0;
+      if (state.configurator.packPhotoMode === 'same') {
+        state.configurator.plates.forEach(p => { p.fitMode = mode; p.offsetX = 0; p.offsetY = 0; });
+      }
+      renderPreviewCanvas();
+    }
+
+    function updateActivePlateZoom(val) {
+      const slot = state.configurator.plates[state.configurator.activePlateIndex];
+      if (!slot) return;
+      slot.zoom = parseInt(val, 10);
+      if (state.configurator.packPhotoMode === 'same') {
+        state.configurator.plates.forEach(p => { p.zoom = slot.zoom; });
+      }
+      renderPreviewCanvas();
+    }
+
+    function updateActivePlateOffset(axis, val) {
+      const slot = state.configurator.plates[state.configurator.activePlateIndex];
+      if (!slot) return;
+      const num = parseInt(val, 10);
+      if (axis === 'x') slot.offsetX = num;
+      if (axis === 'y') slot.offsetY = num;
+      if (state.configurator.packPhotoMode === 'same') {
+        state.configurator.plates.forEach(p => {
+          p.offsetX = slot.offsetX;
+          p.offsetY = slot.offsetY;
+        });
+      }
+      renderPreviewCanvas();
+    }
+
+    function resetActivePlateFraming() {
+      const slot = state.configurator.plates[state.configurator.activePlateIndex];
+      if (!slot) return;
+      slot.fitMode = 'cover';
+      slot.zoom = 100;
+      slot.offsetX = 0;
+      slot.offsetY = 0;
+      if (state.configurator.packPhotoMode === 'same') {
+        state.configurator.plates.forEach(p => {
+          p.fitMode = 'cover';
+          p.zoom = 100;
+          p.offsetX = 0;
+          p.offsetY = 0;
+        });
+      }
+      renderPreviewCanvas();
+      showToast('Encuadre restablecido y centrado', 'info');
+    }
+
+    function autoMatchOrientationToPhoto() {
+      const slot = state.configurator.plates[state.configurator.activePlateIndex];
+      if (!slot || !slot.naturalWidth || !slot.naturalHeight) return;
+      const detected = slot.naturalHeight > slot.naturalWidth ? 'vertical' : 'horizontal';
+      selectConfigOrientation(detected);
+    }
+
+    // Arrastre directo (mouse y táctil) sobre la placa
+    function startDragPan(e) {
+      const slot = state.configurator.plates[state.configurator.activePlateIndex];
+      if (!slot || !slot.photoDataUrl) return;
+
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      dragPanState = {
+        isDragging: true,
+        startX: clientX,
+        startY: clientY,
+        initialOffsetX: slot.offsetX,
+        initialOffsetY: slot.offsetY
+      };
+      document.getElementById('preview-crop-grid').classList.remove('hidden');
+    }
+
+    function onDragPanMove(e) {
+      if (!dragPanState.isDragging) return;
+      if (e.cancelable) e.preventDefault();
+
+      const slot = state.configurator.plates[state.configurator.activePlateIndex];
+      if (!slot) return;
+
+      const frame = document.getElementById('preview-plate-frame');
+      const plateW = frame.clientWidth || 300;
+      const plateH = frame.clientHeight || 225;
+
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      const deltaXPercent = Math.round(((clientX - dragPanState.startX) / plateW) * 100);
+      const deltaYPercent = Math.round(((clientY - dragPanState.startY) / plateH) * 100);
+
+      slot.offsetX = Math.max(-50, Math.min(50, dragPanState.initialOffsetX + deltaXPercent));
+      slot.offsetY = Math.max(-50, Math.min(50, dragPanState.initialOffsetY + deltaYPercent));
+
+      if (state.configurator.packPhotoMode === 'same') {
+        state.configurator.plates.forEach(p => {
+          p.offsetX = slot.offsetX;
+          p.offsetY = slot.offsetY;
+        });
+      }
+
+      renderPreviewCanvas();
+    }
+
+    function stopDragPan() {
+      if (!dragPanState.isDragging) return;
+      dragPanState.isDragging = false;
+      document.getElementById('preview-crop-grid').classList.add('hidden');
+    }
+
+    // ==================== CARGA DE IMAGEN INDIVIDUAL Y EN LOTE (SEGÚN PACK) ====================
+    function loadImageFileToSlot(file, slotIndex, autoOrientOnFirst = false) {
+      return new Promise((resolve, reject) => {
+        if (!file.type.startsWith('image/')) {
+          reject(new Error('Archivo no válido'));
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const dataUrl = e.target.result;
+          const imgProbe = new Image();
+          imgProbe.onload = function() {
+            const natW = imgProbe.naturalWidth;
+            const natH = imgProbe.naturalHeight;
+
+            if (state.configurator.packPhotoMode === 'same') {
+              state.configurator.plates = state.configurator.plates.map((p, idx) => ({
+                ...createEmptyPlateSlot(idx),
+                photoDataUrl: dataUrl,
+                photoName: file.name,
+                naturalWidth: natW,
+                naturalHeight: natH
+              }));
+            } else {
+              state.configurator.plates[slotIndex] = {
+                ...createEmptyPlateSlot(slotIndex),
+                photoDataUrl: dataUrl,
+                photoName: file.name,
+                naturalWidth: natW,
+                naturalHeight: natH
+              };
+            }
+
+            // Si es la primera foto cargada y aún no había otras, sugerir/adaptar orientación automáticamente
+            if (autoOrientOnFirst) {
+              const detected = natH > natW ? 'vertical' : 'horizontal';
+              if (detected !== state.configurator.orientation) {
+                state.configurator.orientation = detected;
+              }
+            }
+            resolve();
+          };
+          imgProbe.src = dataUrl;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleSinglePlatePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const hadAnyPhoto = state.configurator.plates.some(p => Boolean(p.photoDataUrl));
+      try {
+        await loadImageFileToSlot(file, state.configurator.activePlateIndex, !hadAnyPhoto);
+        syncConfiguratorUI();
+        showToast('Fotografía cargada. Puedes ajustar el zoom y arrastrarla sobre la placa.', 'success');
+      } catch (err) {
+        showToast('Por favor, selecciona un archivo de imagen válido (JPG, PNG, WEBP).', 'error');
+      }
+      event.target.value = '';
+    }
+
+    async function handleBatchPhotoUpload(event) {
+      const files = Array.from(event.target.files || []);
+      if (files.length === 0) return;
+
+      const totalPlates = state.configurator.plates.length;
+      const hadAnyPhoto = state.configurator.plates.some(p => Boolean(p.photoDataUrl));
+      const filesToUse = files.slice(0, totalPlates);
+
+      for (let i = 0; i < filesToUse.length; i++) {
+        try {
+          await loadImageFileToSlot(filesToUse[i], i, !hadAnyPhoto && i === 0);
+        } catch (err) {
+          // Ignorar archivos que no sean imagen
+        }
+      }
+
+      state.configurator.activePlateIndex = 0;
+      syncConfiguratorUI();
+
+      if (files.length > totalPlates) {
+        showToast(`Se han asignado las primeras ${totalPlates} fotos (capacidad máxima de tu pack).`, 'info');
+      } else {
+        showToast(`${filesToUse.length} ${filesToUse.length === 1 ? 'foto asignada' : 'fotos asignadas'} a las placas del pack`, 'success');
+      }
+      event.target.value = '';
+    }
+
+    // ==================== AÑADIR AL CARRITO ====================
+    function addConfiguredItemToCart() {
+      const { size, orientation, packIndex, packPhotoMode, plates } = state.configurator;
+      const sizeObj = CATALOG_DATA[size];
+      const pack = sizeObj.packs[packIndex];
+      const dims = getOrientedDimensions(size, orientation);
+
+      // Validar que todas las placas del pack tengan fotografía asignada
+      if (packPhotoMode === 'same') {
+        if (!plates[0] || !plates[0].photoDataUrl) {
+          showToast('Sube primero tu fotografía en el Paso 3 para añadir el cuadro al carrito.', 'error');
+          return;
+        }
+      } else {
+        const missingIndex = plates.findIndex(p => !p.photoDataUrl);
+        if (missingIndex !== -1) {
+          selectActivePlate(missingIndex);
+          showToast(`Falta subir la fotografía de la Placa ${missingIndex + 1} de ${pack.qty}.`, 'error');
+          return;
+        }
+      }
+
+      const comments = document.getElementById('config-comments').value.trim();
+
+      // Construir detalle exacto de cada placa con su foto y parámetros de encuadre
+      const configuredPlates = plates.map((p, idx) => {
+        const source = packPhotoMode === 'same' ? plates[0] : p;
+        return {
+          plateNumber: idx + 1,
+          photoDataUrl: source.photoDataUrl,
+          photoName: source.photoName || `placa_${idx + 1}.jpg`,
+          fitMode: source.fitMode,
+          zoom: source.zoom,
+          offsetX: source.offsetX,
+          offsetY: source.offsetY
+        };
+      });
+
+      state.cart.push({
+        cartItemId: 'ITEM-' + Date.now(),
+        sizeId: sizeObj.id,
+        orientation: orientation,
+        orientationLabel: dims.orientationLabel,
+        sizeLabel: dims.label,
+        packLabel: pack.label,
+        qty: pack.qty,
+        price: pack.price,
+        comments: comments,
+        photoDataUrl: configuredPlates[0].photoDataUrl,
+        photoName: configuredPlates.length > 1
+          ? `${configuredPlates.length} placas (${packPhotoMode === 'same' ? 'misma foto' : 'fotos individuales'})`
+          : configuredPlates[0].photoName,
+        plates: configuredPlates
+      });
+
+      saveCart();
+      updateCartUI();
+      toggleCartDrawer(true);
+      showToast('Producto añadido al carrito con su orientación y encuadre', 'success');
+    }
+
+    // ==================== CARRITO Y CHECKOUT ====================
+    function toggleCartDrawer(open) {
+      const drawer = document.getElementById('cart-drawer');
+      if (open) {
+        drawer.classList.remove('hidden');
+        if (state.currentUser && state.currentUser.role === 'customer') {
+          document.getElementById('chk-name').value = state.currentUser.name || '';
+          document.getElementById('chk-phone').value = state.currentUser.phone || '';
+          document.getElementById('chk-email').value = state.currentUser.email || '';
+          document.getElementById('chk-address').value = state.currentUser.address || '';
+        }
+      } else {
+        drawer.classList.add('hidden');
+      }
+    }
+
+    function removeCartItem(cartItemId) {
+      state.cart = state.cart.filter(i => i.cartItemId !== cartItemId);
+      saveCart();
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      document.getElementById('cart-count-badge').textContent = state.cart.length;
+      const container = document.getElementById('cart-items-container');
+      const form = document.getElementById('checkout-form');
+      const totalEl = document.getElementById('cart-total-amount');
+
+      if (state.cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-12 space-y-3">
+            <div class="w-14 h-14 rounded-2xl bg-gray-100 mx-auto flex items-center justify-center text-gray-400">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"/></svg>
+            </div>
+            <p class="font-semibold text-alu-dark">Tu carrito está vacío</p>
+            <p class="text-xs text-gray-500">Sube tu fotografía en el configurador para crear tu cuadro de aluminio.</p>
+          </div>
+        `;
+        form.classList.add('hidden');
+        totalEl.textContent = '0,00 €';
+        return;
+      }
+
+      let total = 0;
+      container.innerHTML = state.cart.map(item => {
+        total += item.price;
+        const platesList = item.plates || [{ photoDataUrl: item.photoDataUrl, plateNumber: 1 }];
+        const thumbsPreview = platesList.slice(0, 4).map(p => `
+          <img src="${p.photoDataUrl}" alt="Placa ${p.plateNumber}" class="w-11 h-11 rounded-lg object-cover border border-gray-300 bg-white shrink-0" />
+        `).join('');
+
+        return `
+          <div class="p-3.5 rounded-2xl border border-gray-200 bg-alu-light/60 space-y-2.5">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h4 class="font-display font-bold text-sm text-alu-dark">${item.sizeLabel} · ${item.packLabel}</h4>
+                <span class="inline-block mt-0.5 px-2 py-0.5 rounded bg-white border border-gray-200 text-[11px] font-semibold text-gray-700">
+                  Orientación: ${item.orientationLabel || 'Horizontal'}
+                </span>
+              </div>
+              <button type="button" onclick="removeCartItem('${item.cartItemId}')" class="text-xs text-red-500 hover:underline shrink-0">Eliminar</button>
+            </div>
+
+            <div class="flex items-center gap-1.5 flex-wrap">
+              ${thumbsPreview}
+              ${platesList.length > 4 ? `<span class="w-11 h-11 rounded-lg bg-gray-200 text-alu-dark text-xs font-bold flex items-center justify-center">+${platesList.length - 4}</span>` : ''}
+            </div>
+
+            <p class="text-xs text-gray-500 truncate">${item.photoName}</p>
+            ${item.comments ? `<p class="text-xs text-gray-600 italic">"${item.comments}"</p>` : ''}
+            <p class="font-display font-bold text-sm text-alu-dark">${formatEuro(item.price)} <span class="text-[11px] font-normal text-gray-500">(IVA incl.)</span></p>
+          </div>
+        `;
+      }).join('');
+
+      form.classList.remove('hidden');
+      totalEl.textContent = formatEuro(total);
+    }
+
+    function generateNextOrderNumber() {
+      const year = new Date().getFullYear();
+      let maxNum = 0;
+      state.orders.forEach(o => {
+        const parts = o.id.split('-');
+        const num = parseInt(parts[2], 10);
+        if (!isNaN(num) && num > maxNum) maxNum = num;
+      });
+      return `ALU-${year}-${String(maxNum + 1).padStart(4, '0')}`;
+    }
+
+    function handleCheckoutSubmit(event) {
+      event.preventDefault();
+      if (state.cart.length === 0) return;
+
+      const name = document.getElementById('chk-name').value.trim();
+      const phone = document.getElementById('chk-phone').value.trim();
+      const email = document.getElementById('chk-email').value.trim().toLowerCase();
+      const address = document.getElementById('chk-address').value.trim();
+
+      const orderId = generateNextOrderNumber();
+      const nowIso = new Date().toISOString();
+      const nowFormatted = new Date().toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' });
+      const total = state.cart.reduce((acc, item) => acc + item.price, 0);
+
+      const newOrder = {
+        id: orderId,
+        date: nowIso,
+        customerName: name,
+        customerEmail: email,
+        customerPhone: phone,
+        shippingAddress: address,
+        status: 'Pedido recibido',
+        total: total,
+        isNewForAdmin: true,
+        internalNotes: '',
+        items: JSON.parse(JSON.stringify(state.cart)),
+        history: [
+          { date: nowFormatted, action: `Pedido confirmado por el cliente (${orderId})`, by: name }
+        ]
+      };
+
+      state.orders.unshift(newOrder);
+      saveOrders();
+
+      state.cart = [];
+      saveCart();
+      updateCartUI();
+      toggleCartDrawer(false);
+
+      document.getElementById('confirm-modal-order-id').textContent = orderId;
+      document.getElementById('confirm-modal-email').textContent = email;
+
+      const guestPrompt = document.getElementById('confirm-guest-prompt');
+      if (!state.currentUser) {
+        document.getElementById('confirm-guest-email').textContent = email;
+        guestPrompt.classList.remove('hidden');
+      } else {
+        guestPrompt.classList.add('hidden');
+      }
+
+      document.getElementById('order-confirm-modal').classList.remove('hidden');
+      showToast(`Notificación enviada a ${email} y al taller de AluArt`, 'success');
+    }
+
+    function closeOrderConfirmModal() {
+      document.getElementById('order-confirm-modal').classList.add('hidden');
+    }
+
+    function goToOrdersAfterCheckout() {
+      closeOrderConfirmModal();
+      if (state.currentUser && state.currentUser.role === 'customer') {
+        navigateTo('customer');
+      } else {
+        openAuthModal('register');
+        document.getElementById('reg-email').value = document.getElementById('confirm-modal-email').textContent;
+      }
+    }
+
+    // ==================== AUTENTICACIÓN ====================
+    function openAuthModal(tab = 'login') {
+      switchAuthTab(tab);
+      document.getElementById('auth-modal').classList.remove('hidden');
+    }
+
+    function closeAuthModal() {
+      document.getElementById('auth-modal').classList.add('hidden');
+    }
+
+    function switchAuthTab(tab) {
+      const loginForm = document.getElementById('form-login');
+      const regForm = document.getElementById('form-register');
+      const tabLogin = document.getElementById('tab-login-btn');
+      const tabReg = document.getElementById('tab-register-btn');
+
+      if (tab === 'login') {
+        loginForm.classList.remove('hidden');
+        regForm.classList.add('hidden');
+        tabLogin.className = 'py-2.5 rounded-xl text-sm font-semibold bg-white text-alu-dark shadow-xs transition-all';
+        tabReg.className = 'py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-alu-dark transition-all';
+      } else {
+        loginForm.classList.add('hidden');
+        regForm.classList.remove('hidden');
+        tabReg.className = 'py-2.5 rounded-xl text-sm font-semibold bg-white text-alu-dark shadow-xs transition-all';
+        tabLogin.className = 'py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:text-alu-dark transition-all';
+      }
+    }
+
+    async function handleLoginSubmit(event) {
+      event.preventDefault();
+      const identifier = document.getElementById('login-identifier').value.trim().toLowerCase();
+      const password = document.getElementById('login-password').value;
+      const passwordHash = await hashPassword(password);
+
+      const matchedUser = state.users.find(u =>
+        (u.email.toLowerCase() === identifier || (u.username && u.username.toLowerCase() === identifier)) &&
+        u.passwordHash === passwordHash
+      );
+
+      if (!matchedUser) {
+        showToast('Credenciales incorrectas. Verifica tu email y contraseña.', 'error');
+        return;
+      }
+
+      state.currentUser = {
+        id: matchedUser.id,
+        name: matchedUser.name,
+        email: matchedUser.email,
+        phone: matchedUser.phone || '',
+        address: matchedUser.address || '',
+        role: matchedUser.role
+      };
+      saveSession();
+      updateAuthHeaderUI();
+      closeAuthModal();
+
+      if (matchedUser.role === 'admin') {
+        showToast('Bienvenido al Panel de Administración de AluArt', 'success');
+        navigateTo('admin');
+      } else {
+        showToast(`Hola de nuevo, ${matchedUser.name}`, 'success');
+        navigateTo('customer');
+      }
+    }
+
+    async function handleRegisterSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim().toLowerCase();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const password = document.getElementById('reg-password').value;
+
+      if (state.users.some(u => u.email.toLowerCase() === email)) {
+        showToast('Ya existe una cuenta registrada con este correo electrónico.', 'error');
+        return;
+      }
+
+      const passwordHash = await hashPassword(password);
+      const newUser = {
+        id: 'USR-' + Date.now(),
+        name,
+        email,
+        phone,
+        address: '',
+        passwordHash,
+        role: 'customer'
+      };
+
+      state.users.push(newUser);
+      saveUsers();
+
+      state.currentUser = {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        phone: newUser.phone,
+        address: '',
+        role: 'customer'
+      };
+      saveSession();
+      updateAuthHeaderUI();
+      closeAuthModal();
+      showToast('Cuenta creada correctamente. Bienvenido a AluArt.', 'success');
+      navigateTo('customer');
+    }
+
+    function logoutUser() {
+      state.currentUser = null;
+      saveSession();
+      updateAuthHeaderUI();
+      navigateTo('store');
+      showToast('Has cerrado sesión correctamente', 'info');
+    }
+
+    function updateAuthHeaderUI() {
+      const slot = document.getElementById('auth-header-slot');
+      const mobileLinks = document.getElementById('mobile-user-links');
+
+      if (!state.currentUser) {
+        slot.innerHTML = `
+          <button onclick="openAuthModal('login')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium text-alu-dark bg-gray-100 hover:bg-gray-200 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+            <span class="hidden sm:inline">Entrar / Registro</span>
+          </button>
+        `;
+        mobileLinks.innerHTML = `
+          <button onclick="toggleMobileMenu(); openAuthModal('login')" class="w-full text-left px-3 py-2.5 rounded-xl text-base font-semibold text-alu-dark bg-gray-100">
+            Iniciar sesión o registrarse
+          </button>
+        `;
+        return;
+      }
+
+      if (state.currentUser.role === 'admin') {
+        slot.innerHTML = `
+          <div class="flex items-center gap-2">
+            <button onclick="navigateTo('admin')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-alu-dark hover:bg-alu-slate transition-colors">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              Panel Admin
+            </button>
+            <button onclick="logoutUser()" class="px-3 py-2 rounded-xl text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200">
+              Salir
+            </button>
+          </div>
+        `;
+        mobileLinks.innerHTML = `
+          <button onclick="toggleMobileMenu(); navigateTo('admin')" class="w-full text-left px-3 py-2.5 rounded-xl text-base font-semibold text-white bg-alu-dark mb-2">
+            Panel de Administración
+          </button>
+          <button onclick="toggleMobileMenu(); logoutUser()" class="w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-red-600">
+            Cerrar sesión
+          </button>
+        `;
+      } else {
+        const firstName = state.currentUser.name.split(' ')[0];
+        slot.innerHTML = `
+          <button onclick="navigateTo('customer')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-semibold text-alu-dark bg-gray-100 hover:bg-gray-200 transition-colors">
+            <span class="w-6 h-6 rounded-lg bg-alu-dark text-white text-xs flex items-center justify-center font-bold">${firstName[0].toUpperCase()}</span>
+            <span class="hidden sm:inline">Mi cuenta (${firstName})</span>
+          </button>
+        `;
+        mobileLinks.innerHTML = `
+          <button onclick="toggleMobileMenu(); navigateTo('customer')" class="w-full text-left px-3 py-2.5 rounded-xl text-base font-semibold text-alu-dark bg-gray-100 mb-2">
+            Mi cuenta y Mis pedidos
+          </button>
+          <button onclick="toggleMobileMenu(); logoutUser()" class="w-full text-left px-3 py-2 rounded-xl text-sm font-medium text-red-600">
+            Cerrar sesión
+          </button>
+        `;
+      }
+    }
+
+    // ==================== CUENTA DEL CLIENTE ====================
+    function renderCustomerDashboard() {
+      const user = state.currentUser;
+      if (!user) return;
+
+      document.getElementById('customer-avatar-initials').textContent = user.name.substring(0, 2).toUpperCase();
+      document.getElementById('prof-name').value = user.name;
+      document.getElementById('prof-email').value = user.email;
+      document.getElementById('prof-phone').value = user.phone || '';
+      document.getElementById('prof-address').value = user.address || '';
+
+      const myOrders = state.orders.filter(o => o.customerEmail.toLowerCase() === user.email.toLowerCase());
+      document.getElementById('customer-orders-count').textContent = `${myOrders.length} ${myOrders.length === 1 ? 'pedido' : 'pedidos'}`;
+
+      const listEl = document.getElementById('customer-orders-list');
+      if (myOrders.length === 0) {
+        listEl.innerHTML = `
+          <div class="bg-white rounded-3xl border border-gray-200 p-10 text-center space-y-3">
+            <p class="font-display font-bold text-lg text-alu-dark">Aún no tienes pedidos realizados</p>
+            <p class="text-sm text-gray-500">Personaliza tu primer cuadro de aluminio y sigue aquí cada fase de fabricación.</p>
+            <a href="#personalizar" onclick="navigateTo('store')" class="inline-block px-6 py-3 rounded-2xl bg-alu-dark text-white text-sm font-semibold mt-2">
+              Crear mi primer cuadro
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = myOrders.map(order => {
+        const isCancelled = order.status === 'Cancelado';
+        const currentStepIndex = PROGRESS_STEPS.indexOf(order.status);
+        const dateFormatted = new Date(order.date).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
+
+        return `
+          <div class="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-100">
+              <div>
+                <div class="flex items-center gap-2.5 flex-wrap">
+                  <span class="font-display font-bold text-lg text-alu-dark">Pedido ${order.id}</span>
+                  <span class="px-3 py-1 rounded-full text-xs font-bold ${getStatusBadgeClass(order.status)}">
+                    Estado actual: ${order.status}
+                  </span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Realizado el ${dateFormatted} · Envío a: ${order.shippingAddress}</p>
+              </div>
+              <div class="text-left sm:text-right">
+                <span class="text-xs text-gray-400 block">Importe total (IVA incl.)</span>
+                <span class="font-display font-bold text-xl text-alu-dark">${formatEuro(order.total)}</span>
+              </div>
+            </div>
+
+            ${isCancelled ? `
+              <div class="p-4 rounded-2xl bg-red-50 border border-red-200 text-xs text-red-800 font-medium">
+                Este pedido ha sido marcado como <strong>Cancelado</strong>. Si tienes dudas, contacta con nosotros en hola@aluart.es.
+              </div>
+            ` : `
+              <div class="py-2">
+                <div class="grid grid-cols-7 gap-1 sm:gap-2">
+                  ${PROGRESS_STEPS.map((step, idx) => {
+                    const completed = idx <= currentStepIndex;
+                    const isCurrent = idx === currentStepIndex;
+                    return `
+                      <div class="flex flex-col items-center text-center">
+                        <div class="w-full flex items-center">
+                          <div class="h-1.5 flex-1 rounded-full ${idx === 0 ? 'bg-transparent' : (completed ? 'bg-alu-dark' : 'bg-gray-200')}"></div>
+                          <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${isCurrent ? 'bg-alu-dark text-white ring-4 ring-gray-900/15' : (completed ? 'bg-alu-dark text-white' : 'bg-gray-200 text-gray-500')}">
+                            ${completed ? '✓' : idx + 1}
+                          </div>
+                          <div class="h-1.5 flex-1 rounded-full ${idx === PROGRESS_STEPS.length - 1 ? 'bg-transparent' : (idx < currentStepIndex ? 'bg-alu-dark' : 'bg-gray-200')}"></div>
+                        </div>
+                        <span class="text-[9px] sm:text-[11px] mt-2 leading-tight ${isCurrent ? 'font-bold text-alu-dark' : (completed ? 'font-medium text-gray-700' : 'text-gray-400')}">
+                          ${step}
+                        </span>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            `}
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              ${order.items.map(item => `
+                <div class="p-3 rounded-2xl bg-alu-light border border-gray-200/80 flex items-center gap-3">
+                  <img src="${item.photoDataUrl}" alt="Foto pedido" class="w-14 h-14 rounded-xl object-cover border border-gray-300 shrink-0" />
+                  <div class="min-w-0">
+                    <p class="font-semibold text-sm text-alu-dark">${item.sizeLabel} · ${item.packLabel}</p>
+                    <p class="text-[11px] text-gray-600">Orientación: ${item.orientationLabel || 'Horizontal'}</p>
+                    <p class="text-xs font-bold text-alu-dark mt-0.5">${formatEuro(item.price)}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleUpdateCustomerProfile(event) {
+      event.preventDefault();
+      if (!state.currentUser) return;
+
+      const newName = document.getElementById('prof-name').value.trim();
+      const newPhone = document.getElementById('prof-phone').value.trim();
+      const newAddress = document.getElementById('prof-address').value.trim();
+
+      state.currentUser.name = newName;
+      state.currentUser.phone = newPhone;
+      state.currentUser.address = newAddress;
+      saveSession();
+
+      const userInDb = state.users.find(u => u.id === state.currentUser.id);
+      if (userInDb) {
+        userInDb.name = newName;
+        userInDb.phone = newPhone;
+        userInDb.address = newAddress;
+        saveUsers();
+      }
+
+      updateAuthHeaderUI();
+      renderCustomerDashboard();
+      showToast('Datos de tu cuenta actualizados', 'success');
+    }
+
+    // ==================== PANEL DE ADMINISTRACIÓN DE ALUART ====================
+    function getStatusBadgeClass(status) {
+      switch (status) {
+        case 'Pedido recibido': return 'bg-amber-100 text-amber-800';
+        case 'Pago confirmado': return 'bg-cyan-100 text-cyan-800';
+        case 'En preparación': return 'bg-purple-100 text-purple-800';
+        case 'En producción': return 'bg-blue-100 text-blue-800';
+        case 'Preparado': return 'bg-teal-100 text-teal-800';
+        case 'Enviado': return 'bg-indigo-100 text-indigo-800';
+        case 'Entregado': return 'bg-emerald-100 text-emerald-800';
+        case 'Cancelado': return 'bg-red-100 text-red-800';
+        default: return 'bg-gray-100 text-gray-800';
+      }
+    }
+
+    function renderAdminDashboard() {
+      const pendingStatuses = ['Pedido recibido', 'Pago confirmado', 'En preparación', 'Preparado'];
+      const pendingCount = state.orders.filter(o => pendingStatuses.includes(o.status)).length;
+      const productionCount = state.orders.filter(o => o.status === 'En producción').length;
+      const shippedCount = state.orders.filter(o => o.status === 'Enviado').length;
+      const deliveredCount = state.orders.filter(o => o.status === 'Entregado').length;
+      const revenue = state.orders
+        .filter(o => o.status !== 'Cancelado')
+        .reduce((sum, o) => sum + o.total, 0);
+
+      document.getElementById('kpi-pending').textContent = pendingCount;
+      document.getElementById('kpi-production').textContent = productionCount;
+      document.getElementById('kpi-shipped').textContent = shippedCount;
+      document.getElementById('kpi-delivered').textContent = deliveredCount;
+      document.getElementById('kpi-revenue').textContent = formatEuro(revenue);
+
+      const newOrders = state.orders.filter(o => o.isNewForAdmin);
+      const banner = document.getElementById('admin-new-orders-banner');
+      if (newOrders.length > 0) {
+        banner.classList.remove('hidden');
+        document.getElementById('admin-new-orders-text').textContent =
+          `Tienes ${newOrders.length} ${newOrders.length === 1 ? 'pedido nuevo recibido' : 'pedidos nuevos recibidos'} (${newOrders.map(o => o.id).join(', ')})`;
+      } else {
+        banner.classList.add('hidden');
+      }
+
+      renderAdminOrders();
+    }
+
+    function dismissAdminAlerts() {
+      state.orders.forEach(o => { o.isNewForAdmin = false; });
+      saveOrders();
+      renderAdminDashboard();
+    }
+
+    function renderAdminOrders() {
+      const search = document.getElementById('admin-search-input').value.trim().toLowerCase();
+      const statusFilter = document.getElementById('admin-status-filter').value;
+      const sortDir = document.getElementById('admin-sort-select').value;
+
+      let filtered = state.orders.filter(o => {
+        const matchesSearch =
+          o.id.toLowerCase().includes(search) ||
+          o.customerName.toLowerCase().includes(search) ||
+          o.customerEmail.toLowerCase().includes(search);
+        const matchesStatus = statusFilter === 'ALL' || o.status === statusFilter;
+        return matchesSearch && matchesStatus;
+      });
+
+      filtered.sort((a, b) => {
+        const da = new Date(a.date).getTime();
+        const db = new Date(b.date).getTime();
+        return sortDir === 'desc' ? db - da : da - db;
+      });
+
+      const tbody = document.getElementById('admin-orders-tbody');
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="py-12 text-center text-gray-500">
+              No se encontraron pedidos con los filtros actuales.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(order => {
+        const d = new Date(order.date).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        const firstImg = order.items[0]?.photoDataUrl || '';
+        const totalPlates = order.items.reduce((acc, i) => acc + (i.qty || 1), 0);
+        const summaryProducts = order.items.map(i => `${i.sizeLabel} (${i.orientationLabel || 'Horizontal'} · ${i.packLabel})`).join(', ');
+
+        return `
+          <tr class="hover:bg-gray-50/80 transition-colors ${order.isNewForAdmin ? 'bg-amber-50/40' : ''}">
+            <td class="py-4 px-5">
+              <div class="flex items-center gap-2">
+                <span class="font-display font-bold text-alu-dark">${order.id}</span>
+                ${order.isNewForAdmin ? '<span class="px-1.5 py-0.5 rounded bg-amber-500 text-white text-[10px] font-bold">NUEVO</span>' : ''}
+              </div>
+              <span class="text-xs text-gray-500 block mt-0.5">${d}</span>
+            </td>
+            <td class="py-4 px-5">
+              <p class="font-semibold text-alu-dark">${order.customerName}</p>
+              <p class="text-xs text-gray-500">${order.customerEmail}</p>
+              <p class="text-xs text-gray-400">${order.customerPhone}</p>
+            </td>
+            <td class="py-4 px-5 max-w-xs">
+              <p class="text-xs font-medium text-gray-800">${summaryProducts}</p>
+              <p class="text-[11px] text-gray-400 truncate mt-0.5">${order.shippingAddress}</p>
+            </td>
+            <td class="py-4 px-5">
+              <div class="flex items-center gap-2">
+                ${firstImg ? `<img src="${firstImg}" alt="Foto" class="w-12 h-12 rounded-xl object-cover border border-gray-300 shadow-2xs" />` : '-'}
+                ${totalPlates > 1 ? `<span class="px-2 py-0.5 rounded-md bg-gray-100 text-alu-dark text-[11px] font-bold">${totalPlates} placas</span>` : ''}
+              </div>
+            </td>
+            <td class="py-4 px-5 font-display font-bold text-alu-dark">
+              ${formatEuro(order.total)}
+            </td>
+            <td class="py-4 px-5">
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${getStatusBadgeClass(order.status)}">
+                ${order.status}
+              </span>
+            </td>
+            <td class="py-4 px-5 text-right">
+              <button onclick="openAdminOrderModal('${order.id}')" class="px-3.5 py-2 rounded-xl bg-alu-dark text-white text-xs font-semibold hover:bg-alu-slate transition-colors">
+                Abrir pedido
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openAdminOrderModal(orderId) {
+      const order = state.orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      if (order.isNewForAdmin) {
+        order.isNewForAdmin = false;
+        saveOrders();
+        renderAdminDashboard();
+      }
+
+      document.getElementById('adm-modal-title').textContent = `Pedido ${order.id} · ${order.customerName}`;
+      const body = document.getElementById('admin-modal-body');
+
+      body.innerHTML = `
+        <!-- Control rápido de estado y notificación -->
+        <div class="p-5 rounded-2xl bg-alu-light border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Estado del pedido (visible para el cliente)</label>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <select id="adm-status-select" class="rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-alu-dark focus:outline-none focus:ring-2 focus:ring-alu-dark">
+                ${ORDER_STATUSES.map(st => `<option value="${st}" ${st === order.status ? 'selected' : ''}>${st}</option>`).join('')}
+              </select>
+              <button type="button" onclick="updateOrderStatusFromAdmin('${order.id}')" class="px-4 py-2.5 rounded-xl bg-alu-dark text-white text-xs font-semibold hover:bg-alu-slate transition-colors">
+                Actualizar y notificar email
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col sm:items-end gap-1.5">
+            <span class="text-xs text-gray-500">Importe total (IVA incl.)</span>
+            <span class="font-display text-2xl font-bold text-alu-dark">${formatEuro(order.total)}</span>
+            <button type="button" onclick="openWhatsAppBridge('Hola ${order.customerName}, te escribimos de AluArt sobre tu pedido ${order.id}. Estado actual: ${order.status}.', '${order.customerPhone}')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 hover:underline">
+              Avisar por WhatsApp Business →
+            </button>
+          </div>
+        </div>
+
+        <!-- Fotografías Originales, Orientación y Encuadre de cada Placa -->
+        <div class="space-y-4">
+          <h3 class="font-display font-bold text-base text-alu-dark">Placas del Pedido, Orientación y Encuadre del Cliente</h3>
+          <div class="space-y-5">
+            ${order.items.map((item, itemIdx) => {
+              const platesList = item.plates && item.plates.length > 0
+                ? item.plates
+                : [{ plateNumber: 1, photoDataUrl: item.photoDataUrl, photoName: item.photoName, fitMode: 'cover', zoom: 100, offsetX: 0, offsetY: 0 }];
+
+              return `
+                <div class="p-4 sm:p-5 rounded-2xl border border-gray-200 bg-white space-y-4">
+                  <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-gray-100">
+                    <div>
+                      <span class="font-display font-bold text-base text-alu-dark">${item.sizeLabel} · ${item.packLabel} (${item.qty} uds.)</span>
+                      <span class="ml-2 px-2.5 py-0.5 rounded-full bg-alu-dark text-white text-xs font-semibold">${item.orientationLabel || 'Horizontal'}</span>
+                    </div>
+                    <span class="font-display font-bold text-sm text-alu-dark">${formatEuro(item.price)}</span>
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-gray-50 text-xs text-gray-700">
+                    <strong>Instrucciones del cliente:</strong> ${item.comments || 'Sin comentarios adicionales.'}
+                  </div>
+
+                  <!-- Cuadrícula de todas las placas del pack con descarga individual -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    ${platesList.map((pl, pIdx) => `
+                      <div class="p-3 rounded-xl border border-gray-200 bg-alu-light/50 space-y-2.5">
+                        <div class="flex items-center justify-between text-xs">
+                          <span class="font-bold text-alu-dark">Placa #${pl.plateNumber || (pIdx + 1)}</span>
+                          <span class="text-[11px] text-gray-500">${pl.fitMode === 'contain' ? 'Sin recorte' : 'Rellenar'} · Zoom ${pl.zoom || 100}%</span>
+                        </div>
+                        <div class="aspect-video rounded-lg overflow-hidden bg-gray-200 border border-gray-300">
+                          <img src="${pl.photoDataUrl}" alt="Placa ${pIdx + 1}" class="w-full h-full object-contain" />
+                        </div>
+                        <div class="text-[11px] text-gray-600 space-y-0.5">
+                          <p class="truncate font-medium">${pl.photoName || 'imagen_placa.jpg'}</p>
+                          <p class="text-gray-400">Encuadre: X ${pl.offsetX || 0}%, Y ${pl.offsetY || 0}%</p>
+                        </div>
+                        <a href="${pl.photoDataUrl}" download="${order.id}_Placa${pl.plateNumber || (pIdx + 1)}_${pl.photoName || 'foto.jpg'}" class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+                          Descargar original
+                        </a>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+        <!-- Edición de Datos del Pedido + Notas Internas Privadas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onsubmit="saveAdminOrderEdits(event, '${order.id}')" class="p-5 rounded-2xl border border-gray-200 space-y-3">
+            <h3 class="font-display font-bold text-sm text-alu-dark">Editar datos del cliente / envío</h3>
+            <div>
+              <label class="block text-[11px] font-semibold text-gray-600 mb-1">Nombre del cliente</label>
+              <input id="adm-edit-name" type="text" value="${order.customerName}" required class="w-full rounded-xl border border-gray-300 px-3 py-2 text-xs" />
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] font-semibold text-gray-600 mb-1">Teléfono</label>
+                <input id="adm-edit-phone" type="text" value="${order.customerPhone}" required class="w-full rounded-xl border border-gray-300 px-3 py-2 text-xs" />
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-gray-600 mb-1">Email</label>
+                <input id="adm-edit-email" type="email" value="${order.customerEmail}" required class="w-full rounded-xl border border-gray-300 px-3 py-2 text-xs" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-gray-600 mb-1">Dirección de envío</label>
+              <textarea id="adm-edit-address" rows="2" required class="w-full rounded-xl border border-gray-300 px-3 py-2 text-xs">${order.shippingAddress}</textarea>
+            </div>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-gray-900 text-white text-xs font-semibold hover:bg-gray-700">
+              Guardar modificación de datos
+            </button>
+          </form>
+
+          <div class="p-5 rounded-2xl border border-amber-200 bg-amber-50/50 space-y-3 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <h3 class="font-display font-bold text-sm text-amber-950">Notas internas de taller</h3>
+                <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-amber-200 text-amber-900">Solo Admin</span>
+              </div>
+              <p class="text-[11px] text-amber-800 mb-2">Estas notas son privadas y nunca serán visibles para el cliente.</p>
+              <textarea id="adm-internal-notes" rows="4" placeholder="Ej.: Revisar perfil ICC, embalaje reforzado, nº de expedición..." class="w-full rounded-xl border border-amber-300 bg-white px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500">${order.internalNotes || ''}</textarea>
+            </div>
+            <button type="button" onclick="saveAdminInternalNotes('${order.id}')" class="self-start px-4 py-2 rounded-xl bg-amber-600 text-white text-xs font-semibold hover:bg-amber-700">
+              Guardar nota interna
+            </button>
+          </div>
+        </div>
+
+        <!-- Historial de cambios -->
+        <div class="p-5 rounded-2xl border border-gray-200 bg-gray-50/70">
+          <h3 class="font-display font-bold text-sm text-alu-dark mb-3">Historial cronológico de cambios</h3>
+          <ul class="space-y-2 text-xs">
+            ${order.history.slice().reverse().map(h => `
+              <li class="flex items-start justify-between gap-4 py-1.5 border-b border-gray-200/60 last:border-0">
+                <span class="text-gray-800">• ${h.action}</span>
+                <span class="text-gray-400 shrink-0">${h.date} (${h.by})</span>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      `;
+
+      document.getElementById('admin-order-modal').classList.remove('hidden');
+    }
+
+    function closeAdminOrderModal() {
+      document.getElementById('admin-order-modal').classList.add('hidden');
+    }
+
+    function updateOrderStatusFromAdmin(orderId) {
+      const order = state.orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      const newStatus = document.getElementById('adm-status-select').value;
+      if (newStatus === order.status) {
+        showToast('El pedido ya se encuentra en ese estado', 'info');
+        return;
+      }
+
+      const nowFormatted = new Date().toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' });
+      order.status = newStatus;
+      order.history.push({
+        date: nowFormatted,
+        action: `Estado cambiado a: ${newStatus}`,
+        by: 'Admin'
+      });
+
+      saveOrders();
+      renderAdminDashboard();
+      openAdminOrderModal(orderId);
+
+      ALUART_INTEGRATIONS.whatsappBusiness.sendTemplateNotification(order.customerPhone, order.id, newStatus);
+      showToast(`Estado actualizado a "${newStatus}" y email enviado a ${order.customerEmail}`, 'success');
+    }
+
+    function saveAdminOrderEdits(event, orderId) {
+      event.preventDefault();
+      const order = state.orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      order.customerName = document.getElementById('adm-edit-name').value.trim();
+      order.customerPhone = document.getElementById('adm-edit-phone').value.trim();
+      order.customerEmail = document.getElementById('adm-edit-email').value.trim();
+      order.shippingAddress = document.getElementById('adm-edit-address').value.trim();
+
+      const nowFormatted = new Date().toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' });
+      order.history.push({
+        date: nowFormatted,
+        action: 'Datos de cliente / dirección modificados manualmente',
+        by: 'Admin'
+      });
+
+      saveOrders();
+      renderAdminDashboard();
+      openAdminOrderModal(orderId);
+      showToast('Información del pedido actualizada', 'success');
+    }
+
+    function saveAdminInternalNotes(orderId) {
+      const order = state.orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      order.internalNotes = document.getElementById('adm-internal-notes').value.trim();
+      const nowFormatted = new Date().toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' });
+      order.history.push({
+        date: nowFormatted,
+        action: 'Nota interna privada actualizada',
+        by: 'Admin'
+      });
+
+      saveOrders();
+      openAdminOrderModal(orderId);
+      showToast('Nota interna guardada (visible solo para el administrador)', 'success');
+    }
+
+    // ==================== UTILIDADES ====================
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      event.target.reset();
+      showToast('Mensaje enviado a hola@aluart.es. Te responderemos muy pronto.', 'success');
+    }
+
+    function openWhatsAppBridge(message, customPhone) {
+      const cleanPhone = (customPhone || ALUART_INTEGRATIONS.whatsappBusiness.phone).replace(/\D/g, '');
+      const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank', 'noopener');
+    }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const colors = {
+        success: 'bg-alu-dark text-white border-emerald-500/40',
+        error: 'bg-red-950 text-white border-red-500/40',
+        info: 'bg-alu-charcoal text-white border-gray-600'
+      };
+      toast.className = `pointer-events-auto px-4 py-3.5 rounded-2xl border shadow-xl text-xs sm:text-sm font-medium flex items-center justify-between gap-3 transition-all duration-300 ${colors[type] || colors.info}`;
+      toast.innerHTML = `
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()" class="text-white/60 hover:text-white text-xs">✕</button>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 4200);
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
